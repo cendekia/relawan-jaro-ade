@@ -5,6 +5,7 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 import DashboardScreen from './screens/DashboardScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import DrawerContainer from './components/containers/DrawerContainer';
 
 const DashboardScreenStack = StackNavigator(
   {
@@ -45,14 +46,15 @@ const DrawerNav = DrawerNavigator(
       path: '/',
       screen: DashboardScreenStack
     },
-    Register: {
+    Pendaftaran: {
       path: '/register',
       screen: RegisterScreenStack
     }
   },
   {
     initialRouteName: 'Beranda',
-    drawerPosition: 'right'
+    drawerPosition: 'right',
+    contentComponent: DrawerContainer
   }
 );
 
