@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "relawan-jaro-ade",
-    "description": "An empty new project",
+    "description": "RAJA or Relawan Jaro Ade",
     "slug": "relawan-jaro-ade",
     "privacy": "public",
     "sdkVersion": "21.0.0",
@@ -10,13 +10,17 @@
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app-icon.png",
     "loading": {
-      "icon": "./assets/icons/loading-icon.png"
+      "icon": "./assets/icons/loading-icon.png",
+      "backgroundColor": "#F4D03F"
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.cendekiapp.relawanjaroade"
     }
   }
 }
