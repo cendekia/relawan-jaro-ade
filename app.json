@@ -11,7 +11,7 @@
     "icon": "./assets/icons/app-icon.png",
     "loading": {
       "icon": "./assets/icons/loading-icon.png",
-      "backgroundColor": "#F4D03F"
+      "backgroundColor": "#F9BF3B"
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]

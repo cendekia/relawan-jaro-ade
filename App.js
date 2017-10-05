@@ -15,9 +15,9 @@ const DashboardScreenStack = StackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       initialRouteName: 'DashboardScreen',
-      headerMode: 'screen',
       headerTitle: 'Dashboard Screen Header',
       drawerLabel: 'Dashboard Screen',
+      headerMode: 'screen',
     }),
   }
 );
@@ -31,9 +31,9 @@ const RegisterScreenStack = StackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       initialRouteName: 'RegisterScreen',
-      headerMode: 'screen',
       headerTitle: 'Register Screen Header',
       drawerLabel: 'Register Screen',
+      headerMode: 'screen',
     }),
   }
 );
@@ -41,17 +41,17 @@ const RegisterScreenStack = StackNavigator(
 
 const DrawerNav = DrawerNavigator(
   {
-    Dashboard: {
+    Beranda: {
       path: '/',
       screen: DashboardScreenStack
     },
     Register: {
-      path: '/',
+      path: '/register',
       screen: RegisterScreenStack
     }
   },
   {
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'Beranda',
     drawerPosition: 'right'
   }
 );
