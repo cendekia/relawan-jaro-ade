@@ -9,8 +9,6 @@ class DashboardScreen extends Component {
     drawerLabel: 'Beranda',
     header: ({navigation}) => <Header
       title='Beranda'
-      leftButton={1}
-      showButton={true}
       {...navigation}
     />
   };
