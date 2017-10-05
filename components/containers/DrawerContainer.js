@@ -19,10 +19,10 @@ class DrawerContainer extends Component {
       <Container>
         <Content style={styles.container}>
           <Row style={styles.headNavigation}>
-            <Col>
+            <Col style={{alignItems: 'center'}}>
               <Image
                 source={require('../../assets/icons/loading-icon.png')}
-                style={{width: null, height: 240}}
+                style={{width: 150, height: 150}}
               />
             </Col>
           </Row>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headNavigation: {
-    paddingTop: 40,
+    paddingTop: 30,
     paddingLeft: 35,
     paddingRight: 35,
     paddingBottom: 10,
