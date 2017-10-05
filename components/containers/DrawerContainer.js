@@ -14,7 +14,6 @@ import Colors from '../../constants/Colors';
 class DrawerContainer extends Component {
 
   render() {
-    console.log(this.props);
     const { navigation } = this.props
     return (
       <Container>
@@ -103,7 +102,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: 'grey',
     borderWidth: 1,
-    borderBottom: 1,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',

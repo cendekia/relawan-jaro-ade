@@ -14,6 +14,10 @@ import { Platform, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
 
 class DefaultHeader extends Component {
+  state = {
+    isReady: false,
+  };
+
   defaultState = {
     showButton: true,
     action: () => alert("menu clicked"),
@@ -30,7 +34,20 @@ class DefaultHeader extends Component {
     }
   };
 
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+
+    this.setState({ isReady: true });
+  }
+
   render() {
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
+
     renderLeft = (state) => {
       if (state.showButton) {
         return <Left style={state.style}>{renderButton(state)}</Left>;
