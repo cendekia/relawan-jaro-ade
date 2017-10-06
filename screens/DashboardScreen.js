@@ -23,8 +23,8 @@ class DashboardScreen extends Component {
   render() {
     return (
       <Container>
-        <Content style={{margin: 8, marginTop: Platform.OS == 'android' ? 30 : 40}}>
-          <Row style={{marginBottom: 15}}>
+        <Content style={{margin: 8, marginTop: 0}}>
+          <Row style={{marginBottom: 15, marginTop: Platform.OS == 'android' ? 30 : 40}}>
             <Col>
               <Body>
                 <H1 style={[styles.customH1, {color: '#666'}]}>RELAWAN JARO ADE</H1>
@@ -53,7 +53,7 @@ class DashboardScreen extends Component {
                       </H1>
                     </Col>
                     <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, {fontSize: 13}]}>
+                      <Text style={[styles.fontWhite, styles.footerText]}>
                         Relawan Terdaftar
                       </Text>
                     </Col>
@@ -75,7 +75,7 @@ class DashboardScreen extends Component {
                       </H1>
                     </Col>
                     <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, {fontSize: 13}]}>
+                      <Text style={[styles.fontWhite, styles.footerText]}>
                         150 dari 434 Desa
                       </Text>
                     </Col>
@@ -99,7 +99,7 @@ class DashboardScreen extends Component {
                       </H1>
                     </Col>
                     <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, {fontSize: 13}]}>
+                      <Text style={[styles.fontWhite, styles.footerText]}>
                         35 dari 40 Kecamatan
                       </Text>
                     </Col>
@@ -122,7 +122,7 @@ class DashboardScreen extends Component {
                       </H1>
                     </Col>
                     <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, {fontSize: 13}]}>
+                      <Text style={[styles.fontWhite, styles.footerText]}>
                         6 dari 6 Dapil
                       </Text>
                     </Col>
@@ -145,8 +145,9 @@ const styles = StyleSheet.create({
   cardItem: { height: 150, backgroundColor: "transparent" },
   absoluteBottom: {position: 'absolute', bottom: 0},
   fontWhite: {color: 'white'},
-  centralize: {justifyContent: 'center', alignItems: 'center', flex: 1},
-  customH1: {fontWeight: 'bold', fontSize: 28}
+  centralize: {alignItems: 'center', flex: 1},
+  customH1: {fontWeight: 'bold', fontSize: 28},
+  footerText: {fontSize: 12},
 });
 
 export default DashboardScreen;
