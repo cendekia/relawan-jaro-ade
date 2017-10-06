@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import {
   Container, Content, Body,
   Row, Col, Grid,
@@ -21,6 +21,9 @@ class DashboardScreen extends Component {
   };
 
   render() {
+    const { navigation, activeItemKey } = this.props
+
+    console.log(this.props);
     return (
       <Container>
         <Content style={{margin: 8, marginTop: 0}}>
@@ -42,6 +45,7 @@ class DashboardScreen extends Component {
             <Grid>
               <Card style={styles.cardTorqua}>
                 <CardItem style={styles.cardItem}>
+                <TouchableOpacity onPress={() => navigation.navigate('MemberListScreen')}>
                   <Body>
                     <Col>
                       <Entypo name='slideshare' size={30}
@@ -58,12 +62,14 @@ class DashboardScreen extends Component {
                       </Text>
                     </Col>
                   </Body>
+                </TouchableOpacity>
                 </CardItem>
               </Card>
             </Grid>
             <Grid>
             <Card style={styles.cardBlue}>
               <CardItem style={styles.cardItem}>
+              <TouchableOpacity onPress={() => navigation.navigate('VillageListScreen')}>
                   <Body>
                     <Col>
                       <Entypo name='tree' size={30}
@@ -80,6 +86,7 @@ class DashboardScreen extends Component {
                       </Text>
                     </Col>
                   </Body>
+                </TouchableOpacity>
                 </CardItem>
               </Card>
             </Grid>
@@ -88,6 +95,7 @@ class DashboardScreen extends Component {
             <Grid>
               <Card style={styles.cardRed}>
                 <CardItem style={styles.cardItem}>
+                <TouchableOpacity onPress={() => navigation.navigate('DistrictListScreen')}>
                   <Body>
                     <Col>
                       <Entypo name='location' size={30}
@@ -104,12 +112,14 @@ class DashboardScreen extends Component {
                       </Text>
                     </Col>
                   </Body>
+                </TouchableOpacity>
                 </CardItem>
               </Card>
             </Grid>
             <Grid>
             <Card style={styles.cardPurple}>
               <CardItem style={styles.cardItem}>
+              <TouchableOpacity onPress={() => navigation.navigate('DapilListScreen')}>
                   <Body>
                     <Col>
                       <Entypo
@@ -127,6 +137,7 @@ class DashboardScreen extends Component {
                       </Text>
                     </Col>
                   </Body>
+                </TouchableOpacity>
                 </CardItem>
               </Card>
             </Grid>

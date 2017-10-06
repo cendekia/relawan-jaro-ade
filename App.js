@@ -5,19 +5,33 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 import DashboardScreen from './screens/DashboardScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import MemberListScreen from './screens/MemberListScreen';
+import VillageListScreen from './screens/VillageListScreen';
+import DistrictListScreen from './screens/DistrictListScreen';
+import DapilListScreen from './screens/DapilListScreen';
 import DrawerContainer from './components/containers/DrawerContainer';
 
 const DashboardScreenStack = StackNavigator(
   {
     DashboardScreen: {
       screen: DashboardScreen
+    },
+    MemberListScreen: {
+      screen: MemberListScreen
+    },
+    VillageListScreen: {
+      screen: VillageListScreen
+    },
+    DistrictListScreen: {
+      screen: DistrictListScreen
+    },
+    DapilListScreen: {
+      screen: DapilListScreen
     }
   },
   {
     navigationOptions: ({ navigation }) => ({
       initialRouteName: 'DashboardScreen',
-      headerTitle: 'Dashboard Screen Header',
-      drawerLabel: 'Dashboard Screen',
       headerMode: 'screen',
     }),
   }
