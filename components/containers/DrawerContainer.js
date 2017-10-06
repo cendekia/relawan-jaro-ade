@@ -14,7 +14,12 @@ import Colors from '../../constants/Colors';
 class DrawerContainer extends Component {
 
   render() {
-    const { navigation } = this.props
+    const { navigation, activeItemKey } = this.props
+
+    isNavigationActive = (routeName) => {
+      return activeItemKey == routeName ? {color: Colors.tintColor} : {color: '#666'}
+    }
+
     return (
       <Container>
         <Content style={styles.container}>
@@ -30,10 +35,10 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='area-graph' size={25} />
+                <Entypo name='area-graph' size={22} style={isNavigationActive('Beranda')} />
               </Left>
               <Body>
-                <Text onPress={() => navigation.navigate('Beranda')}>
+                <Text onPress={() => navigation.navigate('Beranda')} style={isNavigationActive('Beranda')}>
                   Beranda
                 </Text>
               </Body>
@@ -43,10 +48,10 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='add-user' size={25} />
+                <Entypo name='add-user' size={22} style={isNavigationActive('Pendaftaran')} />
               </Left>
               <Body>
-                <Text onPress={() => navigation.navigate('Pendaftaran')}>
+                <Text onPress={() => navigation.navigate('Pendaftaran')} style={isNavigationActive('Pendaftaran')}>
                   Pendaftaran
                 </Text>
               </Body>
@@ -56,7 +61,7 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='paper-plane' size={25} />
+                <Entypo name='paper-plane' size={22} />
               </Left>
               <Body>
                 <Text onPress={() => navigation.navigate('Pendaftaran')}>
@@ -69,7 +74,7 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='help-with-circle' size={25} />
+                <Entypo name='help-with-circle' size={22} />
               </Left>
               <Body>
                 <Text onPress={() => navigation.navigate('Pendaftaran')}>

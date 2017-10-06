@@ -15,7 +15,7 @@ class RegisterScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Register screen</Text>
+        <Text>Register screens</Text>
       </View>
     );
   }
