@@ -22,7 +22,7 @@ class DrawerContainer extends Component {
 
     return (
       <Container>
-        <Content style={styles.container}>
+        <Content scrollEnabled={false} style={styles.container}>
           <Row style={styles.headNavigation}>
             <Col style={{alignItems: 'center'}}>
               <Image
