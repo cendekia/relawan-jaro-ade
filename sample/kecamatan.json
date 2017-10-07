@@ -1,0 +1,183 @@
+[
+  {
+    "sort": "B",
+    "data": [
+      {
+        "name": "BABAKAN MADANG"
+      },
+      {
+        "name": "BOGOR BARAT - KOTA"
+      },
+      {
+        "name": "BOGOR SELATAN - KOTA"
+      },
+      {
+        "name": "BOGOR TENGAH - KOTA"
+      },
+      {
+        "name": "BOGOR TIMUR - KOTA"
+      },
+      {
+        "name": "BOGOR UTARA - KOTA"
+      },
+      {
+        "name": "BOJONGGEDE"
+      }
+    ]
+  },
+  {
+    "sort": "C",
+    "data": [
+      {
+        "name": "CARINGIN"
+      },
+      {
+        "name": "CARIU"
+      },
+      {
+        "name": "CIAMPEA"
+      },
+      {
+        "name": "CIAWI"
+      },
+      {
+        "name": "CIBINONG"
+      },
+      {
+        "name": "CIBUNGBULANG"
+      },
+      {
+        "name": "CIGOMBONG"
+      },
+      {
+        "name": "CIGUDEG"
+      },
+      {
+        "name": "CIJERUK"
+      },
+      {
+        "name": "CILEUNGSI"
+      },
+      {
+        "name": "CIOMAS"
+      },
+      {
+        "name": "CISARUA"
+      },
+      {
+        "name": "CISEENG"
+      },
+      {
+        "name": "CITEUREUP"
+      }
+    ]
+  },
+  {
+    "sort": "D",
+    "data": [{
+      "name": "DRAMAGA"
+    }]
+  },
+  {
+    "sort": "G",
+    "data": [{
+      "name": "GUNUNG PUTRI"
+    },
+    {
+      "name": "GUNUNG SINDUR"
+    }]
+  },
+  {
+    "sort": "J",
+    "data": [{
+      "name": "JASINGA"
+    },
+    {
+      "name": "JONGGOL"
+    }]
+  },
+  {
+    "sort": "K",
+    "data": [{
+      "name": "KEMANG"
+    },
+    {
+      "name": "KLAPA NUNGGAL (KELAPA NUNGGAL)"
+    }]
+  },
+  {
+    "sort": "L",
+    "data": [{
+      "name": "LEUWILIANG"
+    },
+    {
+      "name": "LEUWISADENG"
+    }]
+  },
+  {
+    "sort": "M",
+    "data": [{
+      "name": "MEGAMENDUNG"
+    }]
+  },
+  {
+    "sort": "N",
+    "data": [{
+      "name": "NANGGUNG"
+    }]
+  },
+  {
+    "sort": "P",
+    "data": [{
+      "name": "PAMIJAHAN"
+    },
+    {
+      "name": "PARUNG"
+    },
+    {
+      "name": "PARUNG PANJANG"
+    }]
+  },
+  {
+    "sort": "R",
+    "data": [{
+      "name": "RANCA BUNGUR"
+    },
+    {
+      "name": "RUMPIN"
+    }]
+  },
+  {
+    "sort": "S",
+    "data": [{
+      "name": "SUKAJAYA"
+    },
+    {
+      "name": "SUKAMAKMUR"
+    },
+    {
+      "name": "SUKARAJA"
+    }]
+  },
+  {
+    "sort": "T",
+    "data": [{
+      "name": "TAJURHALANG"
+    },
+    {
+      "name": "TAMANSARI"
+    },
+    {
+      "name": "TANAH SEREAL"
+    },
+    {
+      "name": "TANJUNGSARI"
+    },
+    {
+      "name": "TENJO"
+    },
+    {
+      "name": "TENJOLAYA"
+    }]
+  }
+]
