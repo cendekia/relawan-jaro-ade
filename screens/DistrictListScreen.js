@@ -1,18 +1,27 @@
 import React, { Component } from 'react'
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet, Platform, View } from 'react-native'
 import { STATUS_BAR_HEIGHT } from '../constants'
 import {
   Container, Content, Body,
   Row, Col, Grid,
   Card, CardItem,
   Text, H1, H2, H3,
-  List, ListItem
+  List, ListItem,
+  Spinner
 } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 
 import Colors from '../constants/Colors'
+import kecamatans from '../sample/kecamatan.json';
 
 class DistrictListScreen extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          loading : false,
+      }
+  }
+
   static navigationOptions = {
     title: 'Kecamatan di Bogor',
     headerTintColor: "white",
@@ -29,37 +38,33 @@ class DistrictListScreen extends Component {
 
   render() {
     return (
-      <Container>
+      this.state.loading ?
+      <View style={styles.spinner}>
+        <Spinner color={Colors.tintColor} />
+      </View>
+      :
+      <Container style={{backgroundColor: 'white'}}>
         <Content>
-          <List>
-            <ListItem itemDivider>
-              <Text>A</Text>
-            </ListItem>
-            <ListItem >
-              <Text>Acang Suracang</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Aming Suramin</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>B</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Buyung Subuyung</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>C</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Cecep Surecep</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>D</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Diding Suriding</Text>
-            </ListItem>
-          </List>
+          {
+            kecamatans.map((kecamatan, index) => {
+              return (
+                <List key={index}>
+                  <ListItem itemDivider>
+                    <Text>{kecamatan.sort}</Text>
+                  </ListItem>
+                  {
+                    kecamatan.data.map((item, idx) => {
+                      return (
+                        <ListItem key={idx}>
+                          <Text>{item.name}</Text>
+                        </ListItem>
+                      )
+                    })
+                  }
+                </List>
+              )
+            })
+          }
         </Content>
       </Container>
     )

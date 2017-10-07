@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet, Platform, View } from 'react-native'
 import { STATUS_BAR_HEIGHT } from '../constants'
 import {
   Container, Content, Body,
@@ -11,8 +11,16 @@ import {
 import { Entypo } from '@expo/vector-icons'
 
 import Colors from '../constants/Colors'
+import villages from '../sample/desa.json';
 
 class VillageListScreen extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          loading : false
+      }
+  }
+
   static navigationOptions = {
     title: 'Desa di Bogor',
     headerTintColor: "white",
@@ -29,37 +37,24 @@ class VillageListScreen extends Component {
 
   render() {
     return (
-      <Container>
+      this.state.loading ?
+      <View style={styles.spinner}>
+        <Spinner color={Colors.tintColor} />
+      </View>
+      :
+      <Container style={{backgroundColor: 'white'}}>
         <Content>
-          <List>
-            <ListItem itemDivider>
-              <Text>A</Text>
-            </ListItem>
-            <ListItem >
-              <Text>Acang Suracang</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Aming Suramin</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>B</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Buyung Subuyung</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>C</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Cecep Surecep</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>D</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Diding Suriding</Text>
-            </ListItem>
-          </List>
+          {
+            villages.map((village, index) => {
+              return (
+                <List key={index}>
+                  <ListItem>
+                    <Text>{village.desa}</Text>
+                  </ListItem>
+                </List>
+              )
+            })
+          }
         </Content>
       </Container>
     )
