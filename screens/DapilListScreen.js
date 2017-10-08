@@ -29,7 +29,7 @@ class DapilListScreen extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{backgroundColor: 'white'}}>
         <Content>
           <List>
             <ListItem>
