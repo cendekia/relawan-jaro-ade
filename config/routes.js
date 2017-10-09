@@ -75,6 +75,8 @@ const HelpScreenStack = StackNavigator(HelpScreenRoutes,
   }
 );
 
+// ======= Root Routers (Drawer Navigator) ========
+
 const Routes = DrawerNavigator(
   {
     Beranda: {
