@@ -1,100 +1,38 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Provider } from 'react-redux';
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import React, { Component } from 'react'
+import { Provider, connect } from "react-redux";
+import { addNavigationHelpers } from "react-navigation";
+import AppNavigator from './config/routes'
+import getStore from './stores'
 
-import DashboardScreen from './screens/DashboardScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import MemberListScreen from './screens/MemberListScreen';
-import VillageListScreen from './screens/VillageListScreen';
-import DistrictListScreen from './screens/DistrictListScreen';
-import DapilListScreen from './screens/DapilListScreen';
-import MessageScreen from './screens/MessageScreen';
-import DrawerContainer from './components/containers/DrawerContainer';
+const navReducer = (state, action) => {
+    const newState = AppNavigator.router.getStateForAction(action, state);
+    return newState || state;
+};
 
-const DashboardScreenStack = StackNavigator(
-  {
-    DashboardScreen: {
-      screen: DashboardScreen
-    },
-    MemberListScreen: {
-      screen: MemberListScreen
-    },
-    VillageListScreen: {
-      screen: VillageListScreen
-    },
-    DistrictListScreen: {
-      screen: DistrictListScreen
-    },
-    DapilListScreen: {
-      screen: DapilListScreen
+const store = getStore(navReducer);
+
+@connect(state => ({
+    nav: state.nav
+}))
+
+class AppWithNavigationState extends Component {
+    render() {
+      console.log(store.getState())
+      return (
+          <AppNavigator
+              navigation={addNavigationHelpers({
+                  dispatch: this.props.dispatch,
+                  state: this.props.nav
+              })}
+          />
+      );
     }
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      initialRouteName: 'DashboardScreen',
-      headerMode: 'screen',
-    }),
-  }
-);
+}
 
-const RegisterScreenStack = StackNavigator(
-  {
-    RegisterScreen: {
-      screen: RegisterScreen
-    }
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      initialRouteName: 'RegisterScreen',
-      headerTitle: 'Register Screen Header',
-      drawerLabel: 'Register Screen',
-      headerMode: 'screen',
-    }),
-  }
-);
-
-const MessageScreenStack = StackNavigator(
-  {
-    MessageScreen: {
-      screen: MessageScreen
-    }
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      initialRouteName: 'MessageScreen',
-      headerTitle: 'Message Screen Header',
-      drawerLabel: 'Message Screen',
-      headerMode: 'screen',
-    }),
-  }
-);
-
-
-const DrawerNav = DrawerNavigator(
-  {
-    Beranda: {
-      path: '/',
-      screen: DashboardScreenStack
-    },
-    Pendaftaran: {
-      path: '/register',
-      screen: RegisterScreenStack
-    },
-    Message: {
-      path: '/message',
-      screen: MessageScreenStack
-    },
-    Bantuan: {
-      path: '/message',
-      screen: MessageScreenStack
-    }
-  },
-  {
-    initialRouteName: 'Beranda',
-    drawerPosition: 'right',
-    contentComponent: DrawerContainer
-  }
-);
-
-export default DrawerNav;
+export default function RAJA() {
+    return (
+        <Provider store={store}>
+            <AppWithNavigationState />
+        </Provider>
+    );
+}

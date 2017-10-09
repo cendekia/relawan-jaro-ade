@@ -61,10 +61,10 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='paper-plane' size={22} style={isNavigationActive('Message')} />
+                <Entypo name='paper-plane' size={22} style={isNavigationActive('KotakPesan')} />
               </Left>
               <Body>
-                <Text onPress={() => navigation.navigate('Message')} style={isNavigationActive('Message')}>
+                <Text onPress={() => navigation.navigate('KotakPesan')} style={isNavigationActive('KotakPesan')}>
                   Kotak Pesan
                 </Text>
               </Body>

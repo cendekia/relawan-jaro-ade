@@ -23,7 +23,6 @@ class DashboardScreen extends Component {
   render() {
     const { navigation, activeItemKey } = this.props
 
-    console.log(this.props);
     return (
       <Container>
         <Content style={{margin: 8, marginTop: 0}}>
