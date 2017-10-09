@@ -9,6 +9,7 @@ import MemberListScreen from './screens/MemberListScreen';
 import VillageListScreen from './screens/VillageListScreen';
 import DistrictListScreen from './screens/DistrictListScreen';
 import DapilListScreen from './screens/DapilListScreen';
+import MessageScreen from './screens/MessageScreen';
 import DrawerContainer from './components/containers/DrawerContainer';
 
 const DashboardScreenStack = StackNavigator(
@@ -53,6 +54,22 @@ const RegisterScreenStack = StackNavigator(
   }
 );
 
+const MessageScreenStack = StackNavigator(
+  {
+    MessageScreen: {
+      screen: MessageScreen
+    }
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      initialRouteName: 'MessageScreen',
+      headerTitle: 'Message Screen Header',
+      drawerLabel: 'Message Screen',
+      headerMode: 'screen',
+    }),
+  }
+);
+
 
 const DrawerNav = DrawerNavigator(
   {
@@ -63,6 +80,14 @@ const DrawerNav = DrawerNavigator(
     Pendaftaran: {
       path: '/register',
       screen: RegisterScreenStack
+    },
+    Message: {
+      path: '/message',
+      screen: MessageScreenStack
+    },
+    Bantuan: {
+      path: '/message',
+      screen: MessageScreenStack
     }
   },
   {

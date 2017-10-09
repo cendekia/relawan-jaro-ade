@@ -61,11 +61,11 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='paper-plane' size={22} />
+                <Entypo name='paper-plane' size={22} style={isNavigationActive('Message')} />
               </Left>
               <Body>
-                <Text onPress={() => navigation.navigate('Pendaftaran')}>
-                  Notifikasi
+                <Text onPress={() => navigation.navigate('Message')} style={isNavigationActive('Message')}>
+                  Kotak Pesan
                 </Text>
               </Body>
               <Right />
@@ -74,10 +74,10 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='help-with-circle' size={22} />
+                <Entypo name='help-with-circle' size={22} style={isNavigationActive('Bantuan')} />
               </Left>
               <Body>
-                <Text onPress={() => navigation.navigate('Pendaftaran')}>
+                <Text onPress={() => navigation.navigate('Bantuan')} style={isNavigationActive('Bantuan')}>
                   Bantuan
                 </Text>
               </Body>
