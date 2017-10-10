@@ -1,15 +1,31 @@
-import React, { Component } from 'react';
-import { StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import {
   Container, Content, Body,
   Row, Col, Grid,
   Card, CardItem,
   Text, H1, H2, H3
-} from 'native-base';
-import { Entypo } from '@expo/vector-icons';
+} from 'native-base'
+import { Entypo } from '@expo/vector-icons'
+import { connect } from 'react-redux';
 
-import Header from '../components/Header';
-import Colors from '../constants/Colors';
+import Header from '../components/Header'
+import Colors from '../constants/Colors'
+import { loggedIn } from '../actions'
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginCheck: (value) => {
+      dispatch(loggedIn(value));
+    },
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    loginResponse: state.loginResponse,
+  }
+}
 
 class DashboardScreen extends Component {
   static navigationOptions = {
@@ -18,7 +34,28 @@ class DashboardScreen extends Component {
       title='Beranda'
       {...navigation}
     />
-  };
+  }
+
+  async logIn() {
+    const {
+      type,
+      token
+    } = await Expo.Facebook.logInWithReadPermissionsAsync("1474433265981222", {
+      permissions: ["public_profile", "email"],
+      behavior: 'native'
+    });
+    if (type === "success") {
+      // Get the user's name using Facebook's Graph API
+      // const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture`);
+      // console.log(response);
+
+      this.props.loginCheck({accessToken: token, loginStatus: type, loginType: 'facebook'})
+
+      console.log(this.props)
+    } else {
+      alert("Login Failed!");
+    }
+  }
 
   render() {
     const { navigation, activeItemKey } = this.props
@@ -44,7 +81,7 @@ class DashboardScreen extends Component {
             <Grid>
               <Card style={styles.cardTorqua}>
                 <CardItem style={styles.cardItem}>
-                <TouchableOpacity onPress={() => navigation.navigate('MemberListScreen')}>
+                <TouchableOpacity onPress={() => navigation.navigate('DashboardScreen')}>
                   <Body>
                     <Col>
                       <Entypo name='slideshare' size={30}
@@ -141,6 +178,17 @@ class DashboardScreen extends Component {
               </Card>
             </Grid>
           </Row>
+          <Row>
+            <Grid>
+              <Card>
+                <CardItem>
+                  <TouchableOpacity onPress={() => this.logIn()}>
+                    <Text>Facebook Login</Text>
+                  </TouchableOpacity>
+                </CardItem>
+              </Card>
+            </Grid>
+          </Row>
         </Content>
       </Container>
     )
@@ -158,6 +206,6 @@ const styles = StyleSheet.create({
   centralize: {alignItems: 'center', flex: 1},
   customH1: {fontWeight: 'bold', fontSize: 28},
   footerText: {fontSize: 12},
-});
+})
 
-export default DashboardScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen);

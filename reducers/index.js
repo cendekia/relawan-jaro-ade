@@ -1,5 +1,19 @@
 import { combineReducers } from 'redux'
-import { NEW_REGISTER } from '../constants'
+import { NEW_REGISTER, FB_LOGGED_IN } from '../constants'
+
+const logIn = (state = {}, action) => {
+  switch (action.type) {
+    case FB_LOGGED_IN:
+      return {
+        ...state,
+        accessToken: action.accessToken,
+        loginType: action.loginType,
+        loginStatus: action.loginStatus,
+      }
+    default:
+      return state
+  }
+}
 
 const addNewRegister = (state = {}, action) => {
   switch (action.type) {
@@ -26,6 +40,7 @@ const addNewRegister = (state = {}, action) => {
 export default function getRootReducer(navReducer) {
     return combineReducers({
         nav: navReducer,
+        loginResponse: logIn,
         newRegister: addNewRegister
     });
 }
