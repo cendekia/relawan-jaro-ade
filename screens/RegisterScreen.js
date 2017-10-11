@@ -192,7 +192,14 @@ class RegisterScreen extends Component {
                           confirmBtnText="Masukan"
                           cancelBtnText="Batal"
                           iconComponent={
-                            <Octicons size={30} active name='calendar' style={{color: Colors.tintColor}} />
+                            <Octicons
+                              size={30}
+                              active
+                              name='calendar'
+                              style={{
+                                color: Colors.tintColor,
+                                marginRight: Platform.OS == 'android' ? 14 : 0
+                              }} />
                           }
                           customStyles={{
                             dateInput: {
