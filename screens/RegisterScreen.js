@@ -4,7 +4,8 @@ import {
   Platform,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker
 } from 'react-native'
 import {
   Container, Content, Body,
@@ -13,7 +14,8 @@ import {
   Row, Col, H1, Grid, Button, Text,
   ActionSheet
 } from 'native-base'
-import { Entypo, MaterialIcons } from '@expo/vector-icons'
+import DatePicker from 'react-native-datepicker'
+import { Entypo, MaterialIcons, Octicons } from '@expo/vector-icons'
 import { ImagePicker } from 'expo'
 
 import Header from '../components/Header'
@@ -27,6 +29,7 @@ class RegisterScreen extends Component {
     imagePhoto: null,
     imageKTP: null,
     uploading: false,
+    date: null
   }
 
   static navigationOptions = {
@@ -176,9 +179,39 @@ class RegisterScreen extends Component {
                         <Label>Nama Lengkap</Label>
                         <Input />
                       </Item>
-                      <Item floatingLabel>
+                      <Item style={{marginTop: 30}}>
                         <Label>Tanggal Lahir</Label>
-                        <Input />
+                        <DatePicker
+                          style={{width: 200}}
+                          date={this.state.date}
+                          mode="date"
+                          placeholder="dd/mm/yyyy"
+                          format="DD/MM/YYYY"
+                          minDate="01/01/1970"
+                          maxDate="31/12/2001"
+                          confirmBtnText="Masukan"
+                          cancelBtnText="Batal"
+                          iconComponent={
+                            <Octicons size={30} active name='calendar' style={{color: Colors.tintColor}} />
+                          }
+                          customStyles={{
+                            dateInput: {
+                              marginLeft: 36,
+                              borderWidth: 0
+                            },
+                            dateText: {
+                              fontSize: 17,
+                              color: 'black'
+                            },
+                            placeholderText: {
+                              fontSize: 17,
+                            },
+                            btnTextConfirm: {
+                              color: Colors.tintColor
+                            }
+                          }}
+                          onDateChange={(date) => {this.setState({date: date})}}
+                        />
                       </Item>
                       <Item floatingLabel>
                         <Label>Alamat</Label>
@@ -186,6 +219,10 @@ class RegisterScreen extends Component {
                       </Item>
                       <Item floatingLabel>
                         <Label>No. KTP</Label>
+                        <Input />
+                      </Item>
+                      <Item floatingLabel>
+                        <Label>No. HP</Label>
                         <Input />
                       </Item>
                       <Item floatingLabel>
@@ -270,13 +307,23 @@ class RegisterScreen extends Component {
                     <Button block warning>
                       <Text>Daftar</Text>
                     </Button>
+
                   </Body>
                 </CardItem>
               </Card>
             </Col>
           </Row>
+          <View>
+          <Picker
+            selectedValue={this.state.language}
+            onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+          </View>
         </Content>
       </Container>
+
     );
   }
 }
