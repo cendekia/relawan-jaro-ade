@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import { Entypo } from '@expo/vector-icons'
+import { Entypo, MaterialIcons } from '@expo/vector-icons'
 import {
   Container, Content, Body,
   Left, Right,
@@ -61,7 +61,7 @@ class DrawerContainer extends Component {
           <List>
             <ListItem icon>
               <Left>
-                <Entypo name='paper-plane' size={22} style={isNavigationActive('KotakPesan')} />
+                <MaterialIcons name='mail' size={22} style={isNavigationActive('KotakPesan')} />
               </Left>
               <Body>
                 <Text onPress={() => navigation.navigate('KotakPesan')} style={isNavigationActive('KotakPesan')}>

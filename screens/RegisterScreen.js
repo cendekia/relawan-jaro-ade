@@ -13,16 +13,22 @@ import {
   Row, Col, H1, Grid, Button, Text,
   ActionSheet
 } from 'native-base'
-import { Entypo } from '@expo/vector-icons'
+import { Entypo, MaterialIcons } from '@expo/vector-icons'
 import { ImagePicker } from 'expo'
 
 import Header from '../components/Header'
 import Colors from '../constants/Colors'
 
-var BUTTONS = ["Unggah Photo dengan Kamera...", "Unggah dari Galeri HP...", "Batal"];
-var CANCEL_INDEX = 2;
+var BUTTONS = ["Unggah Photo dengan Kamera...", "Unggah dari Galeri...", "Batal"]
+var CANCEL_INDEX = 2
 
 class RegisterScreen extends Component {
+  state = {
+    imagePhoto: null,
+    imageKTP: null,
+    uploading: false,
+  }
+
   static navigationOptions = {
     drawerLabel: 'Pendaftaran',
     header: ({navigation}) => <Header
@@ -30,6 +36,96 @@ class RegisterScreen extends Component {
       {...navigation}
     />
   };
+
+  _renderPhotoKTP = () => {
+    let { imageKTP } = this.state;
+    if (!imageKTP) {
+      return (
+        <Entypo size={200} active name='v-card' style={{color: '#ccc'}} />
+      );
+    }
+
+    return (
+      <Image source={{ uri: imageKTP }} style={{ width: 250, height: 250, marginTop: 20 }} />
+    )
+  }
+
+  _renderPhoto = () => {
+    let { imagePhoto } = this.state;
+    if (!imagePhoto) {
+      return (
+        <MaterialIcons size={200} active name='portrait' style={{color: '#ccc'}} />
+      );
+    }
+
+    return (
+      <Image source={{ uri: imagePhoto }} style={{ width: 250, height: 250, marginTop: 20 }} />
+    )
+  }
+
+  _pickPhotoPicFromLib = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    })
+
+    this._handlePhotoProfile(pickerResult)
+  }
+
+  _takePicPhotoFromCam = async () => {
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    })
+
+    this._handlePhotoProfile(pickerResult)
+  }
+
+  _pickKTPFromLib = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    })
+
+    this._handlePhotoKTP(pickerResult)
+  }
+
+  _takeKTPFromCam = async () => {
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    })
+
+    this._handlePhotoKTP(pickerResult)
+  }
+
+  _handlePhotoProfile = async pickerResult => {
+    try {
+      this.setState({ uploading: true })
+
+      if (!pickerResult.cancelled) {
+        this.setState({ imagePhoto: pickerResult.uri })
+      }
+    } catch (e) {
+      alert('Maaf, proses mengunggah photo gagal :(')
+    } finally {
+      this.setState({ uploading: false })
+    }
+  }
+
+  _handlePhotoKTP = async pickerResult => {
+    try {
+      this.setState({ uploading: true })
+
+      if (!pickerResult.cancelled) {
+        this.setState({ imageKTP: pickerResult.uri })
+      }
+    } catch (e) {
+      alert('Maaf, proses mengunggah photo KTP gagal :(')
+    } finally {
+      this.setState({ uploading: false })
+    }
+  }
 
   render() {
     return (
@@ -39,7 +135,7 @@ class RegisterScreen extends Component {
             <Col>
               <Body>
                 <H1 style={styles.customH1}>
-                  Silahkan isi data diri Anda
+                  Formulir Pendaftaran Relawan
                 </H1>
               </Body>
             </Col>
@@ -119,15 +215,23 @@ class RegisterScreen extends Component {
                           {
                             options: BUTTONS,
                             cancelButtonIndex: CANCEL_INDEX,
-                            title: "Unggah Photo Relawan"
+                            title: "UNGGAH PHOTO RELAWAN"
                           },
                           buttonIndex => {
-                            //action
+                            switch (buttonIndex) {
+                              case 0:
+                                this._takePicPhotoFromCam()
+                                break
+                              case 1:
+                                this._pickPhotoPicFromLib()
+                                break;
+                              default:
+                            }
                           }
                         )}
                       >
                         <Body>
-                        <Entypo size={200} active name='image' />
+                        {this._renderPhoto()}
                         </Body>
                       </TouchableOpacity>
                       <Item disabled style={{marginTop: 20}}>
@@ -139,15 +243,23 @@ class RegisterScreen extends Component {
                           {
                             options: BUTTONS,
                             cancelButtonIndex: CANCEL_INDEX,
-                            title: "Unggah Photo KTP"
+                            title: "UNGGAH PHOTO KTP"
                           },
                           buttonIndex => {
-                            //action
+                            switch (buttonIndex) {
+                              case 0:
+                                this._takeKTPFromCam()
+                                break
+                              case 1:
+                                this._pickKTPFromLib()
+                                break;
+                              default:
+                            }
                           }
                         )}
                       >
                         <Body>
-                        <Entypo size={200} active name='v-card' />
+                          {this._renderPhotoKTP()}
                         </Body>
                       </TouchableOpacity>
                     </Form>
@@ -155,30 +267,7 @@ class RegisterScreen extends Component {
                 </CardItem>
                 <CardItem>
                   <Body>
-                    <Button block warning
-                    onPress={() =>
-                    ActionSheet.show(
-                      {
-                        options: BUTTONS,
-                        cancelButtonIndex: CANCEL_INDEX,
-                        destructiveButtonIndex: DESTRUCTIVE_INDEX,
-                        title: "Upload Photo KTP"
-                      },
-                      buttonIndex => {
-                        // switch (buttonIndex) {
-                        //   case 0:
-                        //     this._takePhoto()
-                        //     break
-                        //   case 1:
-                        //     this._pickImage()
-                        //     break
-                        //   default:
-                        // }
-
-                        // this.setState({ clicked: BUTTONS[buttonIndex] });
-                      }
-                    )}
-                    >
+                    <Button block warning>
                       <Text>Daftar</Text>
                     </Button>
                   </Body>
