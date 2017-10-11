@@ -97,11 +97,11 @@ class DefaultHeader extends Component {
         </Body>
 
         <Right>
-          <TouchableOpacity
+          {/*<TouchableOpacity
             style={{marginTop: _headerMarginHack()}}
             onPress={() => this.props.navigate('DrawerOpen')}>
             <Entypo name='menu' size={30} style={{color: "#fff", marginTop: Platform.OS ==='android' ? 10 : 0}} />
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </Right>
 
       </Header>

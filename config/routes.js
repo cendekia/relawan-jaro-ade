@@ -99,8 +99,8 @@ const Routes = DrawerNavigator(
     }
   },
   {
-    initialRouteName: 'Beranda',
-    drawerPosition: 'right',
+    initialRouteName: 'Pendaftaran',
+    drawerPosition: 'left',
     contentComponent: DrawerContainer
   }
 );
