@@ -44,7 +44,7 @@ class RegisterScreen extends Component {
     let { imageKTP } = this.state;
     if (!imageKTP) {
       return (
-        <Entypo size={200} active name='v-card' style={{color: '#ccc'}} />
+        <Entypo size={180} active name='v-card' style={{color: '#ccc'}} />
       );
     }
 
@@ -57,7 +57,7 @@ class RegisterScreen extends Component {
     let { imagePhoto } = this.state;
     if (!imagePhoto) {
       return (
-        <MaterialIcons size={200} active name='portrait' style={{color: '#ccc'}} />
+        <MaterialIcons size={160} active name='portrait' style={{color: '#ccc'}} />
       );
     }
 
