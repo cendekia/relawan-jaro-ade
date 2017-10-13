@@ -1,7 +1,6 @@
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 import DashboardScreen from '../screens/DashboardScreen';
-import RegisterScreen from '../screens/RegisterScreen';
 import MemberListScreen from '../screens/MemberListScreen';
 import VillageListScreen from '../screens/VillageListScreen';
 import DistrictListScreen from '../screens/DistrictListScreen';
@@ -10,6 +9,7 @@ import MessageScreen from '../screens/MessageScreen';
 import HelpScreen from '../screens/HelpScreen';
 import TestScreen from '../screens/TestScreen';
 import DrawerContainer from '../components/containers/DrawerContainer';
+import RegisterScreenContainer from '../components/containers/RegisterScreenContainer';
 
 
 
@@ -35,7 +35,7 @@ const DashboardScreenStack = StackNavigator(DashboardScreenRoutes,
 // ======== Register Routers ========
 
 const RegisterScreenRoutes = {
-  RegisterScreen: { screen: RegisterScreen }
+  RegisterScreen: { screen: RegisterScreenContainer }
 }
 
 const RegisterScreenStack = StackNavigator(RegisterScreenRoutes,

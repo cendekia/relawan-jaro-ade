@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import {
   StyleSheet,
   Platform,
   View,
   Image,
-  TouchableOpacity,
-  Picker
+  TouchableOpacity
 } from 'react-native'
 import {
   Container, Content, Body,
@@ -24,54 +22,6 @@ import Colors from '../constants/Colors'
 
 var BUTTONS = ["Kamera", "Galeri", "Batal"]
 var CANCEL_INDEX = 2
-
-import * as actions from '../actions'
-
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setVillage: (village) => {
-      dispatch(actions.setVolunteerVillage(village))
-    },
-    setDistrict:(district) => {
-      dispatch(actions.setVolunteerDistrict(district))
-    },
-    setDapil:(dapil) => {
-      dispatch(actions.setVolunteerDapil(dapil))
-    },
-    setName: (name) => {
-      dispatch(actions.setVolunteerName(name))
-    },
-    setDob:(dob) => {
-      dispatch(actions.setVolunteerDob(dob))
-    },
-    setAddress:(address) => {
-      dispatch(actions.setVolunteerAddress(address))
-    },
-    setNoKTP:(idNumber) => {
-      dispatch(actions.setVolunteerNoKTP(idNumber))
-    },
-    setNoHP:(phoneNumber) => {
-      dispatch(actions.setVolunteerNoHP(phoneNumber))
-    },
-    setNoWA:(waNumber) => {
-      dispatch(actions.setVolunteerNoWA(waNumber))
-    },
-    setPhoto:(photo) => {
-      dispatch(actions.setVolunteerPhoto(photo))
-    },
-    setPhotoKTP:(photoKTP) => {
-      dispatch(actions.setVolunteerPhotoKTP(photoKTP))
-    },
-  }
-}
-
-const mapStateToProps = (state, { navigator }) => {
-  return {
-    ...state,
-    navigator: navigator,
-  }
-}
 
 
 class RegisterScreen extends Component {
@@ -397,14 +347,6 @@ class RegisterScreen extends Component {
               </Card>
             </Col>
           </Row>
-          <View>
-          <Picker
-            selectedValue={this.state.language}
-            onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
-          </View>
         </Content>
       </Container>
 
@@ -423,4 +365,4 @@ const styles = StyleSheet.create({
   customHeader: {fontWeight: 'normal', position: 'absolute', top: 0, right:0, color: Colors.tintColor}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);
+export default RegisterScreen;
