@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   StyleSheet,
   Platform,
@@ -21,15 +22,61 @@ import { ImagePicker } from 'expo'
 import Header from '../components/Header'
 import Colors from '../constants/Colors'
 
-var BUTTONS = ["Unggah Photo dengan Kamera...", "Unggah dari Galeri...", "Batal"]
+var BUTTONS = ["Kamera", "Galeri", "Batal"]
 var CANCEL_INDEX = 2
+
+import * as actions from '../actions'
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setVillage: (village) => {
+      dispatch(actions.setVolunteerVillage(village))
+    },
+    setDistrict:(district) => {
+      dispatch(actions.setVolunteerDistrict(district))
+    },
+    setDapil:(dapil) => {
+      dispatch(actions.setVolunteerDapil(dapil))
+    },
+    setName: (name) => {
+      dispatch(actions.setVolunteerName(name))
+    },
+    setDob:(dob) => {
+      dispatch(actions.setVolunteerDob(dob))
+    },
+    setAddress:(address) => {
+      dispatch(actions.setVolunteerAddress(address))
+    },
+    setNoKTP:(idNumber) => {
+      dispatch(actions.setVolunteerNoKTP(idNumber))
+    },
+    setNoHP:(phoneNumber) => {
+      dispatch(actions.setVolunteerNoHP(phoneNumber))
+    },
+    setNoWA:(waNumber) => {
+      dispatch(actions.setVolunteerNoWA(waNumber))
+    },
+    setPhoto:(photo) => {
+      dispatch(actions.setVolunteerPhoto(photo))
+    },
+    setPhotoKTP:(photoKTP) => {
+      dispatch(actions.setVolunteerPhotoKTP(photoKTP))
+    },
+  }
+}
+
+const mapStateToProps = (state, { navigator }) => {
+  return {
+    ...state,
+    navigator: navigator,
+  }
+}
+
 
 class RegisterScreen extends Component {
   state = {
-    imagePhoto: null,
-    imageKTP: null,
     uploading: false,
-    date: null
   }
 
   static navigationOptions = {
@@ -40,31 +87,32 @@ class RegisterScreen extends Component {
     />
   };
 
-  _renderPhotoKTP = () => {
-    let { imageKTP } = this.state;
-    if (!imageKTP) {
-      return (
-        <Entypo size={180} active name='v-card' style={{color: '#ccc'}} />
-      );
-    }
-
-    return (
-      <Image source={{ uri: imageKTP }} style={{ width: 250, height: 250, marginTop: 20 }} />
-    )
-  }
-
   _renderPhoto = () => {
-    let { imagePhoto } = this.state;
-    if (!imagePhoto) {
+    let { photo } = this.props.volunteerForm;
+    if (!photo) {
       return (
         <MaterialIcons size={160} active name='portrait' style={{color: '#ccc'}} />
       );
     }
 
     return (
-      <Image source={{ uri: imagePhoto }} style={{ width: 250, height: 250, marginTop: 20 }} />
+      <Image source={{ uri: photo }} style={{ width: 250, height: 250, marginTop: 20 }} />
     )
   }
+
+  _renderPhotoKTP = () => {
+    let { photoKTP } = this.props.volunteerForm
+    if (!photoKTP) {
+      return (
+        <Entypo size={180} active name='v-card' style={{color: '#ccc'}} />
+      );
+    }
+
+    return (
+      <Image source={{ uri: photoKTP }} style={{ width: 250, height: 250, marginTop: 20 }} />
+    )
+  }
+
 
   _pickPhotoPicFromLib = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
@@ -107,7 +155,7 @@ class RegisterScreen extends Component {
       this.setState({ uploading: true })
 
       if (!pickerResult.cancelled) {
-        this.setState({ imagePhoto: pickerResult.uri })
+        this.props.setPhoto(pickerResult.uri)
       }
     } catch (e) {
       alert('Maaf, proses mengunggah photo gagal :(')
@@ -121,7 +169,7 @@ class RegisterScreen extends Component {
       this.setState({ uploading: true })
 
       if (!pickerResult.cancelled) {
-        this.setState({ imageKTP: pickerResult.uri })
+        this.props.setPhotoKTP(pickerResult.uri)
       }
     } catch (e) {
       alert('Maaf, proses mengunggah photo KTP gagal :(')
@@ -131,6 +179,7 @@ class RegisterScreen extends Component {
   }
 
   render() {
+    let { volunteerForm } = this.props
     return (
       <Container>
         <Content style={{margin: 8, marginTop: 0}}>
@@ -152,15 +201,24 @@ class RegisterScreen extends Component {
                       <Text style={styles.customHeader}>Wilayah Pemilihan</Text>
                       <Item floatingLabel>
                         <Label>Desa / Kelurahan</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(village) => this.props.setVillage(village)}
+                          value={this.props.village}
+                        />
                       </Item>
                       <Item floatingLabel>
                         <Label>Kecamatan</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(district) => this.props.setDistrict(district)}
+                          value={this.props.district}
+                        />
                       </Item>
                       <Item floatingLabel>
                         <Label>Dapil</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(dapil) => this.props.setDapil(dapil)}
+                          value={this.props.dapil}
+                        />
                       </Item>
                     </Form>
                   </View>
@@ -177,13 +235,16 @@ class RegisterScreen extends Component {
                       <Text style={styles.customHeader}>Data Relawan</Text>
                       <Item floatingLabel>
                         <Label>Nama Lengkap</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(name) => this.props.setName(name)}
+                          value={volunteerForm.name}
+                        />
                       </Item>
                       <Item style={{marginTop: 30}}>
                         <Label>Tanggal Lahir</Label>
                         <DatePicker
                           style={{width: 200}}
-                          date={this.state.date}
+                          date={volunteerForm.dob}
                           mode="date"
                           placeholder="dd/mm/yyyy"
                           format="DD/MM/YYYY"
@@ -217,24 +278,40 @@ class RegisterScreen extends Component {
                               color: Colors.tintColor
                             }
                           }}
-                          onDateChange={(date) => {this.setState({date: date})}}
+                          onDateChange={(dob) => this.props.setDob(dob)}
                         />
                       </Item>
                       <Item floatingLabel>
                         <Label>Alamat</Label>
-                        <Input />
+                        <Input
+                          style={{
+                            height: 150
+                          }}
+                          multiline={true}
+                          onChangeText={(address) => this.props.setAddress(address)}
+                          value={volunteerForm.address}
+                        />
                       </Item>
                       <Item floatingLabel>
                         <Label>No. KTP</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(idNumber) => this.props.setNoKTP(idNumber)}
+                          value={volunteerForm.idNumber}
+                        />
                       </Item>
                       <Item floatingLabel>
                         <Label>No. HP</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(phoneNumber) => this.props.setNoHP(phoneNumber)}
+                          value={volunteerForm.phoneNumber}
+                        />
                       </Item>
                       <Item floatingLabel>
                         <Label>No. HP (Whatsapp)</Label>
-                        <Input />
+                        <Input
+                          onChangeText={(waNumber) => this.props.setNoWA(waNumber)}
+                          value={volunteerForm.waNumber}
+                        />
                       </Item>
                       </Form>
                     </View>
@@ -346,4 +423,4 @@ const styles = StyleSheet.create({
   customHeader: {fontWeight: 'normal', position: 'absolute', top: 0, right:0, color: Colors.tintColor}
 });
 
-export default RegisterScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);
