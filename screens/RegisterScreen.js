@@ -203,21 +203,21 @@ class RegisterScreen extends Component {
                         <Label>Desa / Kelurahan</Label>
                         <Input
                           onChangeText={(village) => this.props.setVillage(village)}
-                          value={this.props.village}
+                          value={volunteerForm.village}
                         />
                       </Item>
                       <Item floatingLabel>
                         <Label>Kecamatan</Label>
                         <Input
                           onChangeText={(district) => this.props.setDistrict(district)}
-                          value={this.props.district}
+                          value={volunteerForm.district}
                         />
                       </Item>
                       <Item floatingLabel>
                         <Label>Dapil</Label>
                         <Input
                           onChangeText={(dapil) => this.props.setDapil(dapil)}
-                          value={this.props.dapil}
+                          value={volunteerForm.dapil}
                         />
                       </Item>
                     </Form>
