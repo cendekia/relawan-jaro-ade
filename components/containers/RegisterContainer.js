@@ -8,39 +8,42 @@ const mapDispatchToProps = (dispatch) => {
     setVillage: (village) => {
       dispatch(actions.setVolunteerVillage(village))
     },
-    setDistrict:(district) => {
+    setDistrict: (district) => {
       dispatch(actions.setVolunteerDistrict(district))
     },
-    setDapil:(dapil) => {
+    setDapil: (dapil) => {
       dispatch(actions.setVolunteerDapil(dapil))
     },
     setName: (name) => {
       dispatch(actions.setVolunteerName(name))
     },
-    setDob:(dob) => {
+    setDob: (dob) => {
       dispatch(actions.setVolunteerDob(dob))
     },
-    setAddress:(address) => {
+    setAddress: (address) => {
       dispatch(actions.setVolunteerAddress(address))
     },
-    setNoKTP:(idNumber) => {
+    setNoKTP: (idNumber) => {
       dispatch(actions.setVolunteerNoKTP(idNumber))
     },
-    setNoHP:(phoneNumber) => {
+    setNoHP: (phoneNumber) => {
       dispatch(actions.setVolunteerNoHP(phoneNumber))
     },
-    setNoWA:(waNumber) => {
+    setNoWA: (waNumber) => {
       dispatch(actions.setVolunteerNoWA(waNumber))
     },
-    setPhoto:(photo) => {
+    setPhoto: (photo) => {
       dispatch(actions.setVolunteerPhoto(photo))
     },
-    setPhotoKTP:(photoKTP) => {
+    setPhotoKTP: (photoKTP) => {
       dispatch(actions.setVolunteerPhotoKTP(photoKTP))
     },
-    resetForm:() => {
+    resetForm: () => {
       dispatch(actions.resetVolunteerForm())
     },
+    saveData: (volunteerData) => {
+      dispatch(actions.saveVolunteerData(volunteerData))
+    }
   }
 }
 

@@ -85,6 +85,13 @@ export function resetVolunteerForm() {
   }
 }
 
+export function saveVolunteerData(volunteerData) {
+  return {
+    type: reduxConst.SAVE_VOLUNTEER_DATA,
+    volunteerData
+  }
+}
+
 export function loggedIn(info) {
   return {
     type: reduxConst.FB_LOGGED_IN,

@@ -13,7 +13,25 @@ const defaultState = {
   waNumber: undefined,
   photo: undefined,
   photoKTP: undefined,
+  createdDate: undefined,
+  updatedDate: undefined,
 }
+
+const defaultVolunteerSavedData = {
+  volunteerCollection: [],
+  totalData: 0,
+  lastAddedDate: undefined,
+  uploadStatus: 'local'
+}
+
+const _formatDate = (date) => {
+  if (date) {
+    return date.toDateString() + ' ' + date.toLocaleTimeString(navigator.language, { hour:'2-digit', minute:'2-digit'});
+  }
+}
+
+const date = new Date();
+const formattedDate = _formatDate(date);
 
 const logIn = (state = {}, action) => {
   switch (action.type) {
@@ -97,8 +115,40 @@ const setVolunteerForm = (state = defaultState, action) => {
         photoKTP: action.photoKTP,
       }
       break
+    case reduxConst.SAVE_VOLUNTEER_DATA:
+      return {
+        ...state,
+        createdDate: formattedDate,
+      }
+      break
+    case reduxConst.UPDATE_VOLUNTEER_DATA:
+      return {
+        ...state,
+        updatedDate: formattedDate,
+      }
+      break
     case reduxConst.RESET_VOLUNTEER_DATA:
       return defaultState
+      break
+    default:
+      return state
+  }
+}
+
+const volunteerCollection = (state = defaultVolunteerSavedData, action) => {
+  switch (action.type) {
+    case reduxConst.SAVE_VOLUNTEER_DATA:
+      const newVolunteerData = [
+        ...state.volunteerCollection,
+        setVolunteerForm(action.volunteerData, action)
+      ];
+
+      return {
+        ...state,
+        totalData: ++state.totalData,
+        lastAddedDate: date,
+        volunteerCollection: newVolunteerData
+      }
       break
     default:
       return state
@@ -109,6 +159,7 @@ export default function getRootReducer(navReducer) {
     return combineReducers({
         nav: navReducer,
         loginResponse: logIn,
-        volunteerForm: setVolunteerForm
+        volunteerForm: setVolunteerForm,
+        volunteerCollection: volunteerCollection,
     });
 }
