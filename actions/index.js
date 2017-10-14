@@ -1,5 +1,6 @@
 import * as reduxConst from '../constants'
 
+
 export function setVolunteerVillage(village) {
   return {
     type: reduxConst.SET_VOLUNTEER_VILLAGE,
@@ -75,6 +76,12 @@ export function setVolunteerPhotoKTP(photoKTP) {
   return {
     type: reduxConst.SET_VOLUNTEER_PHOTO_KTP,
     photoKTP
+  }
+}
+
+export function resetVolunteerForm() {
+  return {
+    type: reduxConst.RESET_VOLUNTEER_DATA,
   }
 }
 

@@ -338,7 +338,9 @@ class RegisterScreen extends Component {
                 </CardItem>
                 <CardItem>
                   <Body>
-                    <Button block warning>
+                    <Button block warning
+                      onPress={() => this.props.resetForm()}
+                    >
                       <Text>Daftar</Text>
                     </Button>
 

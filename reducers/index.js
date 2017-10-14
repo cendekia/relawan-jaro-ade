@@ -97,6 +97,9 @@ const setVolunteerForm = (state = defaultState, action) => {
         photoKTP: action.photoKTP,
       }
       break
+    case reduxConst.RESET_VOLUNTEER_DATA:
+      return defaultState
+      break
     default:
       return state
   }
