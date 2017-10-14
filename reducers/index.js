@@ -1,18 +1,5 @@
 import { combineReducers } from 'redux'
-import {
-  FB_LOGGED_IN,
-  SET_VOLUNTEER_VILLAGE,
-  SET_VOLUNTEER_DISTRICT,
-  SET_VOLUNTEER_DAPIL,
-  SET_VOLUNTEER_NAME,
-  SET_VOLUNTEER_DOB,
-  SET_VOLUNTEER_ADDRESS,
-  SET_VOLUNTEER_NO_KTP,
-  SET_VOLUNTEER_NO_HP,
-  SET_VOLUNTEER_NO_WA,
-  SET_VOLUNTEER_PHOTO,
-  SET_VOLUNTEER_PHOTO_KTP,
-} from '../constants'
+import * as reduxConst from '../constants'
 
 const defaultState = {
   village: undefined,
@@ -30,7 +17,7 @@ const defaultState = {
 
 const logIn = (state = {}, action) => {
   switch (action.type) {
-    case FB_LOGGED_IN:
+    case reduxConst.FB_LOGGED_IN:
       return {
         ...state,
         accessToken: action.accessToken,
@@ -44,67 +31,67 @@ const logIn = (state = {}, action) => {
 
 const setVolunteerForm = (state = defaultState, action) => {
   switch (action.type) {
-    case SET_VOLUNTEER_VILLAGE:
+    case reduxConst.SET_VOLUNTEER_VILLAGE:
       return {
         ...state,
         village: action.village,
       }
       break
-    case SET_VOLUNTEER_DISTRICT:
+    case reduxConst.SET_VOLUNTEER_DISTRICT:
       return {
         ...state,
         district: action.district,
       }
       break
-    case SET_VOLUNTEER_DAPIL:
+    case reduxConst.SET_VOLUNTEER_DAPIL:
       return {
         ...state,
         dapil: action.dapil,
       }
       break
-    case SET_VOLUNTEER_NAME:
+    case reduxConst.SET_VOLUNTEER_NAME:
       return {
         ...state,
         name: action.name,
       }
       break
-    case SET_VOLUNTEER_DOB:
+    case reduxConst.SET_VOLUNTEER_DOB:
       return {
         ...state,
         dob: action.dob,
       }
       break
-    case SET_VOLUNTEER_ADDRESS:
+    case reduxConst.SET_VOLUNTEER_ADDRESS:
       return {
         ...state,
         address: action.address,
       }
       break
-    case SET_VOLUNTEER_NO_KTP:
+    case reduxConst.SET_VOLUNTEER_NO_KTP:
       return {
         ...state,
         idNumber: action.idNumber,
       }
       break
-    case SET_VOLUNTEER_NO_HP:
+    case reduxConst.SET_VOLUNTEER_NO_HP:
       return {
         ...state,
         phoneNumber: action.phoneNumber,
       }
       break
-    case SET_VOLUNTEER_NO_WA:
+    case reduxConst.SET_VOLUNTEER_NO_WA:
       return {
         ...state,
         waNumber: action.waNumber,
       }
       break
-    case SET_VOLUNTEER_PHOTO:
+    case reduxConst.SET_VOLUNTEER_PHOTO:
       return {
         ...state,
         photo: action.photo,
       }
       break
-    case SET_VOLUNTEER_PHOTO_KTP:
+    case reduxConst.SET_VOLUNTEER_PHOTO_KTP:
       return {
         ...state,
         photoKTP: action.photoKTP,
