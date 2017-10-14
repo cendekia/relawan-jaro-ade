@@ -9,7 +9,7 @@ import MessageScreen from '../screens/MessageScreen';
 import HelpScreen from '../screens/HelpScreen';
 import TestScreen from '../screens/TestScreen';
 import DrawerContainer from '../components/containers/DrawerContainer';
-import RegisterScreenContainer from '../components/containers/RegisterScreenContainer';
+import RegisterContainer from '../components/containers/RegisterContainer';
 
 
 
@@ -35,7 +35,7 @@ const DashboardScreenStack = StackNavigator(DashboardScreenRoutes,
 // ======== Register Routers ========
 
 const RegisterScreenRoutes = {
-  RegisterScreen: { screen: RegisterScreenContainer }
+  RegisterScreen: { screen: RegisterContainer }
 }
 
 const RegisterScreenStack = StackNavigator(RegisterScreenRoutes,

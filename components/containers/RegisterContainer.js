@@ -38,6 +38,9 @@ const mapDispatchToProps = (dispatch) => {
     setPhotoKTP:(photoKTP) => {
       dispatch(actions.setVolunteerPhotoKTP(photoKTP))
     },
+    resetForm:() => {
+      dispatch(actions.resetVolunteerForm())
+    },
   }
 }
 
