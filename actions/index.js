@@ -100,3 +100,10 @@ export function loggedIn(info) {
     loginType: info.loginType
   }
 }
+
+export function connectionState(status) {
+  return {
+    type: 'CHANGE_CONNECTION_STATUS',
+    isConnected: status
+  }
+}

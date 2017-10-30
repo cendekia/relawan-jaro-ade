@@ -12,6 +12,7 @@ import {
 } from "native-base";
 import { Platform, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
+import LeftNav from './partials/HeaderLeftNav'
 
 class DefaultHeader extends Component {
   defaultState = {
@@ -97,11 +98,9 @@ class DefaultHeader extends Component {
         </Body>
 
         <Right>
-          {/*<TouchableOpacity
-            style={{marginTop: _headerMarginHack()}}
-            onPress={() => this.props.navigate('DrawerOpen')}>
-            <Entypo name='menu' size={30} style={{color: "#fff", marginTop: Platform.OS ==='android' ? 10 : 0}} />
-          </TouchableOpacity>*/}
+          <LeftNav
+            {...this.props}
+          />
         </Right>
 
       </Header>

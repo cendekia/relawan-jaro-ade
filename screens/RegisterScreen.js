@@ -4,14 +4,15 @@ import {
   Platform,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  NetInfo
 } from 'react-native'
 import {
   Container, Content, Body,
   Form, Item, Label, Input,
   Card, CardItem, Right, Left,
   Row, Col, H1, Grid, Button, Text,
-  ActionSheet
+  ActionSheet, Toast, Icon
 } from 'native-base'
 import DatePicker from 'react-native-datepicker'
 import { Entypo, MaterialIcons, Octicons } from '@expo/vector-icons'
@@ -20,6 +21,8 @@ import { ImagePicker } from 'expo'
 import Header from '../components/Header'
 import Colors from '../constants/Colors'
 
+import { saveData } from '../api'
+
 var BUTTONS = ["Kamera", "Galeri", "Batal"]
 var CANCEL_INDEX = 2
 
@@ -27,7 +30,21 @@ var CANCEL_INDEX = 2
 class RegisterScreen extends Component {
   state = {
     uploading: false,
+    savingResponse: null,
+    responseCode: 20,
   }
+
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
+  }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this._handleConnectionChange);
+  }
+
+  _handleConnectionChange = (isConnected) => {
+    this.props.checkConnection(isConnected)
+  };
 
   static navigationOptions = {
     drawerLabel: 'Pendaftaran',
@@ -128,8 +145,30 @@ class RegisterScreen extends Component {
     }
   }
 
+  _textField() {
+    let { volunteerForm, internetCheck } = this.props
+    let { savingResponse, responseCode } = this.state
+    return (
+
+      <Item floatingLabel={responseCode != 40} stackedLabel={responseCode == 40} error={responseCode == 40}>
+        <Label>Nama Lengkap</Label>
+
+        <Input
+          placeholderTextColor="red"
+          placeholder={responseCode == 40 && savingResponse.error.validation.name ? savingResponse.error.validation.name : ''}
+          onChangeText={(name) => this.props.setName(name)}
+          value={volunteerForm.name}
+        />
+        { responseCode == 40 && savingResponse.error.validation.name && <Icon name='close-circle' /> }
+
+      </Item>
+    )
+  }
+
   render() {
-    let { volunteerForm } = this.props
+    let { volunteerForm, internetCheck } = this.props
+    let { savingResponse, responseCode } = this.state
+
     return (
       <Container>
         <Content style={{margin: 8, marginTop: 0}}>
@@ -183,13 +222,7 @@ class RegisterScreen extends Component {
                   <View style={{flex:1}}>
                     <Form>
                       <Text style={styles.customHeader}>Data Relawan</Text>
-                      <Item floatingLabel>
-                        <Label>Nama Lengkap</Label>
-                        <Input
-                          onChangeText={(name) => this.props.setName(name)}
-                          value={volunteerForm.name}
-                        />
-                      </Item>
+                      {this._textField()}
                       <Item style={{marginTop: 30}}>
                         <Label>Tanggal Lahir</Label>
                         <DatePicker
@@ -339,9 +372,18 @@ class RegisterScreen extends Component {
                 <CardItem>
                   <Body>
                     <Button block warning
-                      onPress={() => this.props.saveData(this.props.volunteerForm)}
+                      onPress={() =>
+                        saveData(this.props.volunteerForm)
+                          .then((res) => {
+                            this.setState({
+                              responseCode: res.status_code,
+                              savingResponse: res
+                            })
+                            console.log(this.state)
+                          })
+                      }
                     >
-                      <Text>Daftar</Text>
+                      <Text>{internetCheck.isConnected ? 'Unggah Data' : 'Simpan Data di HP (offline)'}</Text>
                     </Button>
 
                   </Body>
@@ -351,7 +393,6 @@ class RegisterScreen extends Component {
           </Row>
         </Content>
       </Container>
-
     );
   }
 }

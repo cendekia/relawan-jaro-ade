@@ -1,17 +1,6 @@
 import React, { Component } from 'react'
 import { Provider, connect } from "react-redux"
 import { addNavigationHelpers } from "react-navigation"
-import {
-  Image,
-  Linking,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Alert,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
 import { Root } from 'native-base'
 
 import Expo, { Facebook } from "expo";
@@ -27,7 +16,8 @@ const navReducer = (state, action) => {
 const store = getStore(navReducer);
 
 @connect(state => ({
-    nav: state.nav
+    nav: state.nav,
+    test: 'foo'
 }))
 
 class AppWithNavigationState extends Component {

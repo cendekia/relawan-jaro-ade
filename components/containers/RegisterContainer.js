@@ -43,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     saveData: (volunteerData) => {
       dispatch(actions.saveVolunteerData(volunteerData))
+    },
+    checkConnection: (status) => {
+      dispatch(actions.connectionState(status))
     }
   }
 }

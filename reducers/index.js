@@ -1,7 +1,12 @@
+import { NetInfo } from "react-native";
 import { combineReducers } from 'redux'
 import * as reduxConst from '../constants'
 
-const defaultState = {
+const initialState = {
+  isConnected: false,
+}
+
+const defaultFormState = {
   village: undefined,
   district: undefined,
   dapil: undefined,
@@ -47,7 +52,7 @@ const logIn = (state = {}, action) => {
   }
 }
 
-const setVolunteerForm = (state = defaultState, action) => {
+const setVolunteerForm = (state = defaultFormState, action) => {
   switch (action.type) {
     case reduxConst.SET_VOLUNTEER_VILLAGE:
       return {
@@ -128,7 +133,7 @@ const setVolunteerForm = (state = defaultState, action) => {
       }
       break
     case reduxConst.RESET_VOLUNTEER_DATA:
-      return defaultState
+      return defaultFormState
       break
     default:
       return state
@@ -155,11 +160,23 @@ const volunteerCollection = (state = defaultVolunteerSavedData, action) => {
   }
 }
 
+const internetCheck = (state = initialState, action) => {
+  switch (action.type) {
+    case 'CHANGE_CONNECTION_STATUS':
+      return Object.assign({}, state, {
+        isConnected: action.isConnected,
+      });
+    default:
+      return state
+  }
+}
+
 export default function getRootReducer(navReducer) {
     return combineReducers({
         nav: navReducer,
         loginResponse: logIn,
         volunteerForm: setVolunteerForm,
         volunteerCollection: volunteerCollection,
+        internetCheck: internetCheck,
     });
 }

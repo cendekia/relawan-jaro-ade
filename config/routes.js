@@ -7,6 +7,7 @@ import DistrictListScreen from '../screens/DistrictListScreen';
 import DapilListScreen from '../screens/DapilListScreen';
 import MessageScreen from '../screens/MessageScreen';
 import HelpScreen from '../screens/HelpScreen';
+import VolunteerLocalScreen from '../screens/VolunteerLocalScreen';
 import TestScreen from '../screens/TestScreen';
 import DrawerContainer from '../components/containers/DrawerContainer';
 import RegisterContainer from '../components/containers/RegisterContainer';
@@ -77,6 +78,21 @@ const HelpScreenStack = StackNavigator(HelpScreenRoutes,
   }
 );
 
+// ======= VolunteerLocal Routers =========
+
+const VolunteerLocalScreenRoutes = {
+  VolunteerLocalScreen: { screen: VolunteerLocalScreen }
+}
+
+const VolunteerLocalScreenStack = StackNavigator(VolunteerLocalScreenRoutes,
+  {
+    navigationOptions: ({ navigation }) => ({
+      initialRouteName: 'VolunteerLocalScreen',
+      headerMode: 'screen',
+    }),
+  }
+);
+
 // ======= Root Routers (Drawer Navigator) ========
 
 const Routes = DrawerNavigator(
@@ -96,11 +112,15 @@ const Routes = DrawerNavigator(
     Bantuan: {
       path: '/help',
       screen: HelpScreenStack
+    },
+    Relawan: {
+      path: '/relawan',
+      screen: VolunteerLocalScreenStack
     }
   },
   {
     initialRouteName: 'Pendaftaran',
-    drawerPosition: 'left',
+    drawerPosition: 'right',
     contentComponent: DrawerContainer
   }
 );
