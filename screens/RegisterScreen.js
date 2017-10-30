@@ -145,24 +145,57 @@ class RegisterScreen extends Component {
     }
   }
 
-  _textField() {
-    let { volunteerForm, internetCheck } = this.props
+  _textField(onChange, attributes) {
     let { savingResponse, responseCode } = this.state
     return (
 
-      <Item floatingLabel={responseCode != 40} stackedLabel={responseCode == 40} error={responseCode == 40}>
-        <Label>Nama Lengkap</Label>
+      <Item
+        floatingLabel={responseCode != 40 && attributes.validation == false}
+        stackedLabel={responseCode == 40}
+        error={responseCode == 40}
+      >
+        <Label>{attributes.label}</Label>
 
         <Input
           placeholderTextColor="red"
-          placeholder={responseCode == 40 && savingResponse.error.validation.name ? savingResponse.error.validation.name : ''}
-          onChangeText={(name) => this.props.setName(name)}
-          value={volunteerForm.name}
+          placeholder={responseCode == 40 && attributes.validation ? attributes.validation : ''}
+          onChangeText={(input) => onChange(input)}
+          value={attributes.value}
+          style={attributes.multiline ? {height: 150} : {}}
+          multiline={attributes.multiline ? true : false}
         />
-        { responseCode == 40 && savingResponse.error.validation.name && <Icon name='close-circle' /> }
+        {/*
+          responseCode == 40 && validation && <Icon name='close-circle' />
+        */}
 
       </Item>
     )
+  }
+
+  _validationCheck(response, type) {
+    if (response) {
+      switch (type) {
+        case 'name':
+          return response.error.validation.name
+          break;
+        case 'id_card':
+          return response.error.validation.id_card
+          break;
+        case 'phone_number':
+          return response.error.validation.phone_number
+          break;
+        case 'whatsapp_number':
+          return response.error.validation.whatsapp_number
+          break;
+        case 'address':
+          return response.error.validation.address
+          break;
+        default:
+          return false
+      }
+    } else {
+      return false
+    }
   }
 
   render() {
@@ -222,7 +255,16 @@ class RegisterScreen extends Component {
                   <View style={{flex:1}}>
                     <Form>
                       <Text style={styles.customHeader}>Data Relawan</Text>
-                      {this._textField()}
+
+                      { this._textField(this.props.setName,
+                          {
+                            'value': volunteerForm.name,
+                            'validation': this._validationCheck(savingResponse, 'name'),
+                            'label': "Nama Lengkap"
+                          }
+                        )
+                      }
+
                       <Item style={{marginTop: 30}}>
                         <Label>Tanggal Lahir</Label>
                         <DatePicker
@@ -264,38 +306,44 @@ class RegisterScreen extends Component {
                           onDateChange={(dob) => this.props.setDob(dob)}
                         />
                       </Item>
-                      <Item floatingLabel>
-                        <Label>Alamat</Label>
-                        <Input
-                          style={{
-                            height: 150
-                          }}
-                          multiline={true}
-                          onChangeText={(address) => this.props.setAddress(address)}
-                          value={volunteerForm.address}
-                        />
-                      </Item>
-                      <Item floatingLabel>
-                        <Label>No. KTP</Label>
-                        <Input
-                          onChangeText={(idNumber) => this.props.setNoKTP(idNumber)}
-                          value={volunteerForm.idNumber}
-                        />
-                      </Item>
-                      <Item floatingLabel>
-                        <Label>No. HP</Label>
-                        <Input
-                          onChangeText={(phoneNumber) => this.props.setNoHP(phoneNumber)}
-                          value={volunteerForm.phoneNumber}
-                        />
-                      </Item>
-                      <Item floatingLabel>
-                        <Label>No. HP (Whatsapp)</Label>
-                        <Input
-                          onChangeText={(waNumber) => this.props.setNoWA(waNumber)}
-                          value={volunteerForm.waNumber}
-                        />
-                      </Item>
+
+                      { this._textField(this.props.setAddress,
+                          {
+                            'value': volunteerForm.address,
+                            'validation': this._validationCheck(savingResponse, 'address'),
+                            'label': "Alamat",
+                            'multiline' : true
+                          }
+                        )
+                      }
+
+                      { this._textField(this.props.setNoKTP,
+                          {
+                            'value': volunteerForm.idNumber,
+                            'validation': this._validationCheck(savingResponse, 'id_card'),
+                            'label': "No. KTP"
+                          }
+                        )
+                      }
+
+                      { this._textField(this.props.setNoHP,
+                          {
+                            'value': volunteerForm.phoneNumber,
+                            'validation': this._validationCheck(savingResponse, 'phone_number'),
+                            'label': "No. HP"
+                          }
+                        )
+                      }
+
+                      { this._textField(this.props.setNoWA,
+                          {
+                            'value': volunteerForm.waNumber,
+                            'validation': this._validationCheck(savingResponse, 'whatsapp_number'),
+                            'label': "No. HP (Whatsapp)"
+                          }
+                        )
+                      }
+
                       </Form>
                     </View>
                   </CardItem>
