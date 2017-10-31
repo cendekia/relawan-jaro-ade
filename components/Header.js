@@ -12,7 +12,7 @@ import {
 } from "native-base";
 import { Platform, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
-import LeftNav from './partials/HeaderLeftNav'
+// import LeftNav from './partials/HeaderLeftNav'
 
 class DefaultHeader extends Component {
   defaultState = {
@@ -98,9 +98,7 @@ class DefaultHeader extends Component {
         </Body>
 
         <Right>
-          <LeftNav
-            {...this.props}
-          />
+          
         </Right>
 
       </Header>

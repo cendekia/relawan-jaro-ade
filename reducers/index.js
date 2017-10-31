@@ -1,6 +1,7 @@
 import { NetInfo } from "react-native";
 import { combineReducers } from 'redux'
 import * as reduxConst from '../constants'
+import moment from 'moment'
 
 const initialState = {
   isConnected: false,
@@ -29,14 +30,6 @@ const defaultVolunteerSavedData = {
   uploadStatus: 'local'
 }
 
-const _formatDate = (date) => {
-  if (date) {
-    return date.toDateString() + ' ' + date.toLocaleTimeString(navigator.language, { hour:'2-digit', minute:'2-digit'});
-  }
-}
-
-const date = new Date();
-const formattedDate = _formatDate(date);
 
 const logIn = (state = {}, action) => {
   switch (action.type) {
@@ -123,13 +116,13 @@ const setVolunteerForm = (state = defaultFormState, action) => {
     case reduxConst.SAVE_VOLUNTEER_DATA:
       return {
         ...state,
-        createdDate: formattedDate,
+        createdDate: moment().format(),
       }
       break
     case reduxConst.UPDATE_VOLUNTEER_DATA:
       return {
         ...state,
-        updatedDate: formattedDate,
+        updatedDate: moment().format(),
       }
       break
     case reduxConst.RESET_VOLUNTEER_DATA:
