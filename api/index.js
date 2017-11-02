@@ -33,7 +33,7 @@ export async function saveData(data) {
             text: 'Data berhasil tersimpan!',
             position: 'bottom',
             type: 'success',
-            buttonText: 'Okay'
+            buttonText: 'Tutup'
           })
         default:
           Toast.show({

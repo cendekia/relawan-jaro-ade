@@ -1,7 +1,34 @@
-import { NetInfo } from "react-native";
+import { NetInfo } from "react-native"
 import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/es/storage'
 import * as reduxConst from '../constants'
 import moment from 'moment'
+
+const navPersistConfig = {
+  key: 'nav',
+  storage
+}
+
+const loginPersistConfig = {
+  key: 'login',
+  storage
+}
+
+const formPersistConfig = {
+  key: 'registration-form',
+  storage
+}
+
+const volunteerLocalDataPersistConfig = {
+  key: 'volunteer-local-data',
+  storage
+}
+
+const internetCheckPersistConfig = {
+  key: 'internet-check',
+  storage
+}
 
 const initialState = {
   isConnected: false,
@@ -166,10 +193,10 @@ const internetCheck = (state = initialState, action) => {
 
 export default function getRootReducer(navReducer) {
     return combineReducers({
-        nav: navReducer,
-        loginResponse: logIn,
-        volunteerForm: setVolunteerForm,
-        volunteerCollection: volunteerCollection,
-        internetCheck: internetCheck,
+        nav: persistReducer(navPersistConfig, navReducer),
+        loginResponse: persistReducer(loginPersistConfig, logIn),
+        volunteerForm: persistReducer(formPersistConfig, setVolunteerForm),
+        volunteerCollection: persistReducer(volunteerLocalDataPersistConfig, volunteerCollection),
+        internetCheck: persistReducer(internetCheckPersistConfig, internetCheck)
     });
 }

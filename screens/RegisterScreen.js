@@ -12,9 +12,12 @@ import {
   Form, Item, Label, Input,
   Card, CardItem, Right, Left,
   Row, Col, H1, Grid, Button, Text,
-  ActionSheet, Toast, Icon
+  ActionSheet, Toast, Icon, Picker
 } from 'native-base'
+
 import DatePicker from 'react-native-datepicker'
+import SelectPicker from '../components/modals/SelectPicker'
+
 import { Entypo, MaterialIcons, Octicons } from '@expo/vector-icons'
 import { ImagePicker } from 'expo'
 
@@ -34,6 +37,14 @@ class RegisterScreen extends Component {
     responseCode: 20,
   }
 
+  static navigationOptions = {
+    drawerLabel: 'Pendaftaran',
+    header: ({navigation}) => <Header
+      title='Pendaftaran'
+      {...navigation}
+    />
+  };
+
   componentDidMount() {
     NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
   }
@@ -44,15 +55,7 @@ class RegisterScreen extends Component {
 
   _handleConnectionChange = (isConnected) => {
     this.props.checkConnection(isConnected)
-  };
-
-  static navigationOptions = {
-    drawerLabel: 'Pendaftaran',
-    header: ({navigation}) => <Header
-      title='Pendaftaran'
-      {...navigation}
-    />
-  };
+  }
 
   _renderPhoto = () => {
     let { photo } = this.props.volunteerForm;
@@ -104,7 +107,7 @@ class RegisterScreen extends Component {
       allowsEditing: true,
       aspect: [4, 3],
     })
-
+    alert('test');
     this._handlePhotoKTP(pickerResult)
   }
 
@@ -221,27 +224,30 @@ class RegisterScreen extends Component {
                   <View style={{flex:1}}>
                     <Form>
                       <Text style={styles.customHeader}>Wilayah Pemilihan</Text>
-                      <Item floatingLabel>
-                        <Label>Desa / Kelurahan</Label>
-                        <Input
-                          onChangeText={(village) => this.props.setVillage(village)}
-                          value={volunteerForm.village}
-                        />
-                      </Item>
-                      <Item floatingLabel>
-                        <Label>Kecamatan</Label>
-                        <Input
-                          onChangeText={(district) => this.props.setDistrict(district)}
-                          value={volunteerForm.district}
-                        />
-                      </Item>
-                      <Item floatingLabel>
-                        <Label>Dapil</Label>
-                        <Input
-                          onChangeText={(dapil) => this.props.setDapil(dapil)}
-                          value={volunteerForm.dapil}
-                        />
-                      </Item>
+                      <SelectPicker
+                        label="Desa / Kelurahan"
+                        select={this.props.setVillage}
+                      />
+                    </Form>
+                  </View>
+                </CardItem>
+                <CardItem>
+                  <View style={{flex:1}}>
+                    <Form>
+                      <SelectPicker
+                        label="Kecamatan"
+                        select={this.props.setDistrict}
+                      />
+                    </Form>
+                  </View>
+                </CardItem>
+                <CardItem>
+                  <View style={{flex:1}}>
+                    <Form>
+                      <SelectPicker
+                        label="Dapil"
+                        select={this.props.setDapil}
+                      />
                     </Form>
                   </View>
                 </CardItem>
@@ -371,10 +377,10 @@ class RegisterScreen extends Component {
                           },
                           buttonIndex => {
                             switch (buttonIndex) {
-                              case 0:
+                              case '0':
                                 this._takePicPhotoFromCam()
                                 break
-                              case 1:
+                              case '1':
                                 this._pickPhotoPicFromLib()
                                 break;
                               default:
@@ -399,10 +405,10 @@ class RegisterScreen extends Component {
                           },
                           buttonIndex => {
                             switch (buttonIndex) {
-                              case 0:
+                              case '0':
                                 this._takeKTPFromCam()
                                 break
-                              case 1:
+                              case '1':
                                 this._pickKTPFromLib()
                                 break;
                               default:
@@ -427,11 +433,18 @@ class RegisterScreen extends Component {
                               responseCode: res.status_code,
                               savingResponse: res
                             })
-                            console.log(this.state)
+                          })
+                          .catch(error => {
+                            Toast.show({
+                              text: 'Data tersimpan di HP',
+                              position: 'bottom',
+                              type: 'warning',
+                              buttonText: 'Tutup'
+                            })
                           })
                       }
                     >
-                      <Text>{internetCheck.isConnected ? 'Unggah Data' : 'Simpan Data di HP (offline)'}</Text>
+                      <Text>Unggah Data</Text>
                     </Button>
 
                   </Body>
