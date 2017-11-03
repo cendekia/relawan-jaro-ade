@@ -107,7 +107,7 @@ class RegisterScreen extends Component {
       allowsEditing: true,
       aspect: [4, 3],
     })
-    alert('test');
+
     this._handlePhotoKTP(pickerResult)
   }
 
