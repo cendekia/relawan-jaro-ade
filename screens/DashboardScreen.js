@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { StyleSheet, Platform, TouchableOpacity, View } from 'react-native'
 import {
   Container, Content, Body,
   Row, Col, Grid,
   Card, CardItem,
-  Text, H1, H2, H3
+  Text, H1, H2, H3, Spinner
 } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 import { connect } from 'react-redux';
@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import Header from '../components/Header'
 import Colors from '../constants/Colors'
 import { loggedIn } from '../actions'
+
+import { loadAllDapil, loadAllVillages, loadAllDistricts } from '../api'
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -28,6 +30,9 @@ const mapStateToProps = (state) => {
 }
 
 class DashboardScreen extends Component {
+  constructor(props) {
+      super(props)
+  }
   static navigationOptions = {
     drawerLabel: 'Beranda',
     header: ({navigation}) => <Header
@@ -57,8 +62,22 @@ class DashboardScreen extends Component {
     }
   }
 
+  componentDidMount() {
+    //load dapil list
+    if (this.props.volunteerForm.dapilList.length == 0) {
+      loadAllDapil(this.props)
+    }
+    if (this.props.volunteerForm.villageList.length == 0) {
+      loadAllVillages(this.props)
+    }
+    if (this.props.volunteerForm.districtList.length == 0) {
+      loadAllDistricts(this.props)
+    }
+  }
+
   render() {
     const { navigation, activeItemKey } = this.props
+    let { districtList, dapilList, villageList } = this.props.volunteerForm;
 
     return (
       <Container>
@@ -111,16 +130,25 @@ class DashboardScreen extends Component {
                       <Entypo name='tree' size={30}
                       style={styles.fontWhite} />
                     </Col>
-                    <Col style={styles.centralize}>
-                      <H1 style={[styles.customH1, styles.fontWhite]}>
-                        34.6%
-                      </H1>
-                    </Col>
-                    <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, styles.footerText]}>
-                        150 dari 434 Desa
-                      </Text>
-                    </Col>
+                    { villageList.length == 0 &&
+                      <View style={styles.spinner}>
+                        <Spinner color={Colors.tintColor} />
+                      </View>
+                    }
+                    { villageList.length > 0 &&
+                      <Col style={styles.centralize}>
+                        <H1 style={[styles.customH1, styles.fontWhite]}>
+                          34.6%
+                        </H1>
+                      </Col>
+                    }
+                    { villageList.length > 0 &&
+                      <Col style={styles.absoluteBottom}>
+                        <Text style={[styles.fontWhite, styles.footerText]}>
+                          150 dari 434 Desa
+                        </Text>
+                      </Col>
+                    }
                   </Body>
                 </TouchableOpacity>
                 </CardItem>
@@ -136,17 +164,26 @@ class DashboardScreen extends Component {
                     <Col>
                       <Entypo name='location' size={30}
                     style={styles.fontWhite} />
-                  </Col>
-                    <Col style={styles.centralize}>
-                      <H1 style={[styles.customH1, styles.fontWhite]}>
-                        87.5%
-                      </H1>
                     </Col>
-                    <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, styles.footerText]}>
-                        35 dari 40 Kecamatan
-                      </Text>
-                    </Col>
+                    { districtList.length == 0 &&
+                      <View style={styles.spinner}>
+                        <Spinner color={Colors.tintColor} />
+                      </View>
+                    }
+                    { districtList.length > 0 &&
+                      <Col style={styles.centralize}>
+                        <H1 style={[styles.customH1, styles.fontWhite]}>
+                          87.5%
+                        </H1>
+                      </Col>
+                    }
+                    { districtList.length > 0 &&
+                      <Col style={styles.absoluteBottom}>
+                        <Text style={[styles.fontWhite, styles.footerText]}>
+                          35 dari 40 Kecamatan
+                        </Text>
+                      </Col>
+                    }
                   </Body>
                 </TouchableOpacity>
                 </CardItem>
@@ -162,16 +199,25 @@ class DashboardScreen extends Component {
                         name='map' size={30}
                         style={styles.fontWhite} />
                     </Col>
-                    <Col style={styles.centralize}>
-                      <H1 style={[styles.customH1, styles.fontWhite]}>
-                        100%
-                      </H1>
-                    </Col>
-                    <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, styles.footerText]}>
-                        6 dari 6 Dapil
-                      </Text>
-                    </Col>
+                    { dapilList.length == 0 &&
+                      <View style={styles.spinner}>
+                        <Spinner color={Colors.tintColor} />
+                      </View>
+                    }
+                    { dapilList.length > 0 &&
+                      <Col style={styles.centralize}>
+                        <H1 style={[styles.customH1, styles.fontWhite]}>
+                          100%
+                        </H1>
+                      </Col>
+                    }
+                    { dapilList.length > 0 &&
+                      <Col style={styles.absoluteBottom}>
+                        <Text style={[styles.fontWhite, styles.footerText]}>
+                          6 dari 6 Dapil
+                        </Text>
+                      </Col>
+                    }
                   </Body>
                 </TouchableOpacity>
                 </CardItem>

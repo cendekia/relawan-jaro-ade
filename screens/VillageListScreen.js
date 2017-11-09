@@ -6,7 +6,8 @@ import {
   Row, Col, Grid,
   Card, CardItem,
   Text, H1, H2, H3,
-  List, ListItem
+  List, ListItem,
+  Spinner
 } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 
@@ -16,9 +17,6 @@ import villages from '../sample/desa.json';
 class VillageListScreen extends Component {
   constructor(props) {
       super(props);
-      this.state = {
-          loading : false
-      }
   }
 
   static navigationOptions = {
@@ -36,25 +34,27 @@ class VillageListScreen extends Component {
   };
 
   render() {
+    let { villageList } = this.props.volunteerForm;
+
     return (
-      this.state.loading ?
+      villageList.length == 0 ?
       <View style={styles.spinner}>
         <Spinner color={Colors.tintColor} />
       </View>
       :
       <Container style={{backgroundColor: 'white'}}>
         <Content>
-          {
-            villages.map((village, index) => {
-              return (
-                <List key={index}>
-                  <ListItem>
-                    <Text>{village.desa}</Text>
-                  </ListItem>
-                </List>
-              )
-            })
-          }
+        {
+          villageList.map((village, index) => {
+            return (
+              <List key={index}>
+                <ListItem>
+                  <Text>{village.name}</Text>
+                </ListItem>
+              </List>
+            )
+          })
+        }
         </Content>
       </Container>
     )
@@ -62,3 +62,7 @@ class VillageListScreen extends Component {
 }
 
 export default VillageListScreen
+
+const styles = StyleSheet.create({
+  spinner: { },
+})

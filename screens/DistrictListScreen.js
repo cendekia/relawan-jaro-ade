@@ -12,13 +12,12 @@ import {
 import { Entypo } from '@expo/vector-icons'
 
 import Colors from '../constants/Colors'
-import kecamatans from '../sample/kecamatan.json';
 
 class DistrictListScreen extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          loading : false,
+          loading : true,
       }
   }
 
@@ -37,34 +36,27 @@ class DistrictListScreen extends Component {
   };
 
   render() {
+    let { districtList } = this.props.volunteerForm;
+
     return (
-      this.state.loading ?
+      districtList.length == 0 ?
       <View style={styles.spinner}>
         <Spinner color={Colors.tintColor} />
       </View>
       :
       <Container style={{backgroundColor: 'white'}}>
         <Content>
-          {
-            kecamatans.map((kecamatan, index) => {
-              return (
-                <List key={index}>
-                  <ListItem itemDivider>
-                    <Text>{kecamatan.sort}</Text>
-                  </ListItem>
-                  {
-                    kecamatan.data.map((item, idx) => {
-                      return (
-                        <ListItem key={idx}>
-                          <Text>{item.name}</Text>
-                        </ListItem>
-                      )
-                    })
-                  }
-                </List>
-              )
-            })
-          }
+        {
+          districtList.map((district, index) => {
+            return (
+              <List key={index}>
+                <ListItem>
+                  <Text>{district.name}</Text>
+                </ListItem>
+              </List>
+            )
+          })
+        }
         </Content>
       </Container>
     )
@@ -72,3 +64,7 @@ class DistrictListScreen extends Component {
 }
 
 export default DistrictListScreen
+
+const styles = StyleSheet.create({
+  spinner: { },
+})

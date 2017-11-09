@@ -1,14 +1,16 @@
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 import DashboardScreen from '../screens/DashboardScreen';
+import DashboardContainer from '../components/containers/DashboardContainer';
 import MemberListScreen from '../screens/MemberListScreen';
-import VillageListScreen from '../screens/VillageListScreen';
-import DistrictListScreen from '../screens/DistrictListScreen';
-import DapilListScreen from '../screens/DapilListScreen';
 import MessageScreen from '../screens/MessageScreen';
 import HelpScreen from '../screens/HelpScreen';
 import VolunteerLocalScreen from '../screens/VolunteerLocalScreen';
 import TestScreen from '../screens/TestScreen';
+
+import VillageListContainer from '../components/containers/VillageListContainer';
+import DapilListContainer from '../components/containers/DapilListContainer';
+import DistrictListContainer from '../components/containers/DistrictListContainer';
 import DrawerContainer from '../components/containers/DrawerContainer';
 import RegisterContainer from '../components/containers/RegisterContainer';
 
@@ -17,11 +19,11 @@ import RegisterContainer from '../components/containers/RegisterContainer';
 // ========= Dashboard Routers =========
 
 const DashboardScreenRoutes = {
-  DashboardScreen: { screen: DashboardScreen },
+  DashboardScreen: { screen: DashboardContainer },
   MemberListScreen: { screen: MemberListScreen },
-  VillageListScreen: { screen: VillageListScreen },
-  DistrictListScreen: { screen: DistrictListScreen },
-  DapilListScreen: { screen: DapilListScreen }
+  VillageListScreen: { screen: VillageListContainer },
+  DistrictListScreen: { screen: DistrictListContainer },
+  DapilListScreen: { screen: DapilListContainer }
 }
 
 const DashboardScreenStack = StackNavigator(DashboardScreenRoutes,
@@ -119,7 +121,7 @@ const Routes = DrawerNavigator(
     }
   },
   {
-    initialRouteName: 'Pendaftaran',
+    initialRouteName: 'Beranda',
     drawerPosition: 'right',
     contentComponent: DrawerContainer
   }
