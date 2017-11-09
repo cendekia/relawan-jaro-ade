@@ -24,7 +24,7 @@ import { ImagePicker } from 'expo'
 import Header from '../components/Header'
 import Colors from '../constants/Colors'
 
-import { saveData } from '../api'
+import { saveData, loadAllDapil, loadAllVillages, loadAllDistricts } from '../api'
 
 var BUTTONS = ["Kamera", "Galeri", "Batal"]
 var CANCEL_INDEX = 2
@@ -35,6 +35,7 @@ class RegisterScreen extends Component {
     uploading: false,
     savingResponse: null,
     responseCode: 20,
+    dapilList: null
   }
 
   static navigationOptions = {
@@ -47,6 +48,17 @@ class RegisterScreen extends Component {
 
   componentDidMount() {
     NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
+
+    //load dapil list
+    if (this.props.volunteerForm.dapilList.length == 0) {
+      loadAllDapil(this.props)
+    }
+    if (this.props.volunteerForm.villageList.length == 0) {
+      loadAllVillages(this.props)
+    }
+    if (this.props.volunteerForm.districtList.length == 0) {
+      loadAllDistricts(this.props)
+    }
   }
 
   componentWillUnmount() {
@@ -226,7 +238,10 @@ class RegisterScreen extends Component {
                       <Text style={styles.customHeader}>Wilayah Pemilihan</Text>
                       <SelectPicker
                         label="Desa / Kelurahan"
+                        func={this.props}
                         select={this.props.setVillage}
+                        data={volunteerForm.villageList}
+                        selected={volunteerForm.village}
                       />
                     </Form>
                   </View>
@@ -236,7 +251,10 @@ class RegisterScreen extends Component {
                     <Form>
                       <SelectPicker
                         label="Kecamatan"
+                        func={this.props}
                         select={this.props.setDistrict}
+                        data={volunteerForm.districtList}
+                        selected={volunteerForm.district}
                       />
                     </Form>
                   </View>
@@ -246,7 +264,10 @@ class RegisterScreen extends Component {
                     <Form>
                       <SelectPicker
                         label="Dapil"
+                        func={this.props}
                         select={this.props.setDapil}
+                        data={volunteerForm.dapilList}
+                        selected={volunteerForm.dapil}
                       />
                     </Form>
                   </View>
@@ -262,7 +283,7 @@ class RegisterScreen extends Component {
                     <Form>
                       <Text style={styles.customHeader}>Data Relawan</Text>
 
-                      { this._textField(this.props.setName,
+                      { this._textField(this.props.setDapil,
                           {
                             'value': volunteerForm.name,
                             'validation': this._validationCheck(savingResponse, 'name'),

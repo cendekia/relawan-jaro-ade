@@ -25,8 +25,8 @@ class VillageListScreen extends Component {
     title: 'Desa di Bogor',
     headerTintColor: "white",
     headerStyle: {
-      paddingTop: Platform.OS ==='android' ? STATUS_BAR_HEIGHT : 15,
-      height: Platform.OS ==='android' ? STATUS_BAR_HEIGHT + 60 : 65,
+      marginTop: Platform.OS === 'android' ? 4 : 15,
+      height: Platform.OS === 'android' ? STATUS_BAR_HEIGHT + 30 : 65,
       backgroundColor: Colors.tintColor,
       borderBottomColor: Colors.tintColor
     },

@@ -81,7 +81,7 @@ class DashboardScreen extends Component {
             <Grid>
               <Card style={styles.cardTorqua}>
                 <CardItem style={styles.cardItem}>
-                <TouchableOpacity onPress={() => navigation.navigate('DashboardScreen')}>
+                <TouchableOpacity onPress={() => navigation.navigate('MemberListScreen')}>
                   <Body>
                     <Col>
                       <Entypo name='slideshare' size={30}
@@ -174,17 +174,6 @@ class DashboardScreen extends Component {
                     </Col>
                   </Body>
                 </TouchableOpacity>
-                </CardItem>
-              </Card>
-            </Grid>
-          </Row>
-          <Row>
-            <Grid>
-              <Card>
-                <CardItem>
-                  <TouchableOpacity onPress={() => this.logIn()}>
-                    <Text>Facebook Login</Text>
-                  </TouchableOpacity>
                 </CardItem>
               </Card>
             </Grid>

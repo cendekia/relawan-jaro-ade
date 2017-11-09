@@ -46,6 +46,9 @@ const defaultFormState = {
   waNumber: undefined,
   photo: undefined,
   photoKTP: undefined,
+  dapilList: [],
+  villageList: [],
+  districtList: [],
   createdDate: undefined,
   updatedDate: undefined,
 }
@@ -150,6 +153,24 @@ const setVolunteerForm = (state = defaultFormState, action) => {
       return {
         ...state,
         updatedDate: moment().format(),
+      }
+      break
+    case reduxConst.LOAD_DAPIL_LIST:
+      return {
+        ...state,
+        dapilList: action.dapilList
+      }
+      break
+    case reduxConst.LOAD_VILLAGE_LIST:
+      return {
+        ...state,
+        villageList: action.villageList
+      }
+      break
+    case reduxConst.LOAD_DISTRICT_LIST:
+      return {
+        ...state,
+        districtList: action.districtList
       }
       break
     case reduxConst.RESET_VOLUNTEER_DATA:

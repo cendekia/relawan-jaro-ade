@@ -8,15 +8,70 @@ export default class SelectPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected1: "key1"
+      selected: props.selected
     };
   }
 
   onValueChange(value: string) {
+    this.setState({
+      selected: value
+    });
+
     this.props.select(value)
+
+    let { data } = this.props
+    let currentData = data.find(v => v.id === value)
+
+    if (this.props.label == "Desa / Kelurahan") {
+      // find districts
+      if (currentData.district_id != null) {
+        let districts = this.props.func.volunteerForm.districtList
+        let currentDistrict = districts.find(d => d.id === currentData.district_id)
+        this.props.func.setDistrict(currentDistrict.id)
+      }
+
+      // find dapil
+      if (currentData.dapil_id != null) {
+        let dapils = this.props.func.volunteerForm.dapilList
+        let currentDapil = dapils.find(d => d.id === currentData.dapil_id)
+        this.props.func.setDapil(currentDapil.id)
+      }
+    } else if (this.props.label == "Kecamatan") {
+      // find villages
+      if (currentData.village_id != null) {
+        let villages = this.props.func.volunteerForm.villageList
+        let currentVillage = villages.find(d => d.id === currentData.village_id)
+        this.props.func.setVillage(currentDistrict.id)
+      }
+
+      // find dapil
+      if (currentData.dapil_id != null) {
+        let dapils = this.props.func.volunteerForm.dapilList
+        let currentDapil = dapils.find(d => d.id === currentData.dapil_id)
+        this.props.func.setDapil(currentDapil.id)
+      }
+    } else if (this.props.label == "Dapil") {
+      // find villages
+      if (currentData.village_id != null) {
+        let villages = this.props.func.volunteerForm.villageList
+        let currentVillage = villages.find(d => d.id === currentData.village_id)
+        this.props.func.setVillage(currentDistrict.id)
+      }
+
+      // find districts
+      if (currentData.district_id != null) {
+        let districts = this.props.func.volunteerForm.districtList
+        let currentDistrict = districts.find(d => d.id === currentData.district_id)
+        this.props.func.setDistrict(currentDistrict.id)
+      }
+    }
+    // this.props.func.setDistrict(currentDistrict.id)
+    // this.props.func.setDapil(value)
   }
 
   render() {
+    let { data } = this.props
+
     return (
       <Item stackedLabel>
         <Label>{ this.props.label }</Label>
@@ -36,14 +91,16 @@ export default class SelectPicker extends Component {
                 <Right />
               </Header>
             }
-            selectedValue={this.state.selected1}
+            selectedValue={this.props.selected}
             onValueChange={this.onValueChange.bind(this)}
           >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
+            {
+              data.map((list, index) => {
+                return (
+                  <Picker.Item key={index} label={list.name} value={list.id} />
+                )
+              })
+            }
           </Picker>
       </Item>
     );

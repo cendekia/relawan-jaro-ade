@@ -46,6 +46,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     checkConnection: (status) => {
       dispatch(actions.connectionState(status))
+    },
+    loadDapilList: (list) => {
+      dispatch(actions.loadAllDapil(list))
+    },
+    loadDistrictList: (list) => {
+      dispatch(actions.loadAllDistricts(list))
+    },
+    loadVillageList: (list) => {
+      dispatch(actions.loadAllVillages(list))
     }
   }
 }

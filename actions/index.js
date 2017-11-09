@@ -107,3 +107,25 @@ export function connectionState(status) {
     isConnected: status
   }
 }
+
+
+export function loadAllDapil(list) {
+  return {
+    type: reduxConst.LOAD_DAPIL_LIST,
+    dapilList: list
+  }
+}
+
+export function loadAllVillages(list) {
+  return {
+    type: reduxConst.LOAD_VILLAGE_LIST,
+    villageList: list
+  }
+}
+
+export function loadAllDistricts(list) {
+  return {
+    type: reduxConst.LOAD_DISTRICT_LIST,
+    districtList: list
+  }
+}

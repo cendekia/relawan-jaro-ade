@@ -26,7 +26,10 @@ export default function getStore(navReducer) {
     );
 
     // uncomment to reset all persisting data
-    // purgeStoredState(storage)
+    // purgeStoredState(config)
+    // purgeStoredState({key:'nav', storage})
+    // purgeStoredState({key:'volunteer-local-data', storage})
+    purgeStoredState({key:"registration-form", storage})
 
     persistStore(store, storage)
 

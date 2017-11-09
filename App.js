@@ -16,8 +16,7 @@ const navReducer = (state, action) => {
 const store = getStore(navReducer);
 
 @connect(state => ({
-    nav: state.nav,
-    test: 'foo'
+    nav: state.nav
 }))
 
 class AppWithNavigationState extends Component {
