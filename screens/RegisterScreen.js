@@ -283,7 +283,7 @@ class RegisterScreen extends Component {
                     <Form>
                       <Text style={styles.customHeader}>Data Relawan</Text>
 
-                      { this._textField(this.props.setDapil,
+                      { this._textField(this.props.setName,
                           {
                             'value': volunteerForm.name,
                             'validation': this._validationCheck(savingResponse, 'name'),

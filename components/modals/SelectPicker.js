@@ -23,7 +23,6 @@ export default class SelectPicker extends Component {
     let currentData = data.find(v => v.id === value)
 
     if (this.props.label == "Desa / Kelurahan") {
-      alert(value)
       // find districts
       if (currentData.district_id != null) {
         let districts = this.props.func.volunteerForm.districtList

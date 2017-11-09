@@ -29,7 +29,7 @@ export default function getStore(navReducer) {
     // purgeStoredState(config)
     purgeStoredState({key:'nav', storage})
     // purgeStoredState({key:'volunteer-local-data', storage})
-    purgeStoredState({key:"registration-form", storage})
+    // purgeStoredState({key:"registration-form", storage})
 
     persistStore(store, storage)
 

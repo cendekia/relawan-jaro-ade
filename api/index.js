@@ -28,7 +28,7 @@ export async function saveData(data) {
     )
     .then((res) => {
       switch (res.status_code) {
-        case 20:
+        case 10:
           Toast.show({
             text: 'Data berhasil tersimpan!',
             position: 'bottom',
