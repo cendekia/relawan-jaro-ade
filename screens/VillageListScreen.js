@@ -12,7 +12,6 @@ import {
 import { Entypo } from '@expo/vector-icons'
 
 import Colors from '../constants/Colors'
-import villages from '../sample/desa.json';
 
 class VillageListScreen extends Component {
   constructor(props) {
