@@ -21,7 +21,7 @@ class MessageScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Message screens</Text>
+        <Text>This feature is not available for the moment</Text>
       </View>
     );
   }

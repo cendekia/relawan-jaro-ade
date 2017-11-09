@@ -66,5 +66,10 @@ class DistrictListScreen extends Component {
 export default DistrictListScreen
 
 const styles = StyleSheet.create({
-  spinner: { },
+  spinner: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })

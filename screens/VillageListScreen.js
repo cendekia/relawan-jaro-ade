@@ -63,5 +63,10 @@ class VillageListScreen extends Component {
 export default VillageListScreen
 
 const styles = StyleSheet.create({
-  spinner: { },
+  spinner: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })

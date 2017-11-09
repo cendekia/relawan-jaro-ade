@@ -66,5 +66,10 @@ class DapilListScreen extends Component {
 export default DapilListScreen
 
 const styles = StyleSheet.create({
-  spinner: { },
+  spinner: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })

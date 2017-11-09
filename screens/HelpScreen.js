@@ -21,7 +21,7 @@ class HelpScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Help screen</Text>
+        <Text>This feature is not available for the moment</Text>
       </View>
     );
   }

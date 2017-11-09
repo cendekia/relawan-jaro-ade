@@ -23,6 +23,7 @@ export default class SelectPicker extends Component {
     let currentData = data.find(v => v.id === value)
 
     if (this.props.label == "Desa / Kelurahan") {
+      alert(value)
       // find districts
       if (currentData.district_id != null) {
         let districts = this.props.func.volunteerForm.districtList
@@ -65,8 +66,6 @@ export default class SelectPicker extends Component {
         this.props.func.setDistrict(currentDistrict.id)
       }
     }
-    // this.props.func.setDistrict(currentDistrict.id)
-    // this.props.func.setDapil(value)
   }
 
   render() {
@@ -92,7 +91,8 @@ export default class SelectPicker extends Component {
               </Header>
             }
             selectedValue={this.props.selected}
-            onValueChange={this.onValueChange.bind(this)}
+            // onValueChange={this.onValueChange.bind(this)}
+            onValueChange={ (v) => this.onValueChange(v) }
           >
             {
               data.map((list, index) => {
