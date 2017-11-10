@@ -36,7 +36,7 @@ class DapilListScreen extends Component {
   };
 
   render() {
-    let { dapilList } = this.props.volunteerForm;
+    let { dapilList } = this.props.regionList;
 
     return (
       dapilList.length == 0 ?

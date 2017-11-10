@@ -12,7 +12,6 @@ import {
 import { Entypo } from '@expo/vector-icons'
 
 import Colors from '../constants/Colors'
-import relawans from '../sample/relawan.json';
 
 class MemberListScreen extends Component {
   constructor(props) {
@@ -37,34 +36,28 @@ class MemberListScreen extends Component {
   };
 
   render() {
+    console.log(this.props)
+    let { volunteerList } = this.props.regionList;
+
     return (
-      this.state.loading ?
+      volunteerList.length == 0 ?
       <View style={styles.spinner}>
         <Spinner color={Colors.tintColor} />
       </View>
       :
       <Container style={{backgroundColor: 'white'}}>
         <Content>
-          {
-            relawans.map((relawan, index) => {
-              return (
-                <List key={index}>
-                  <ListItem itemDivider>
-                    <Text>{relawan.sort}</Text>
-                  </ListItem>
-                  {
-                    relawan.data.map((item, idx) => {
-                      return (
-                        <ListItem key={idx}>
-                          <Text>{item.name}</Text>
-                        </ListItem>
-                      )
-                    })
-                  }
-                </List>
-              )
-            })
-          }
+        {
+          volunteerList.map((volunteer, index) => {
+            return (
+              <List key={index}>
+                <ListItem>
+                  <Text>{volunteer.name}</Text>
+                </ListItem>
+              </List>
+            )
+          })
+        }
         </Content>
       </Container>
     )

@@ -33,7 +33,7 @@ class VillageListScreen extends Component {
   };
 
   render() {
-    let { villageList } = this.props.volunteerForm;
+    let { villageList } = this.props.regionList;
 
     return (
       villageList.length == 0 ?

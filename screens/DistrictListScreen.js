@@ -36,7 +36,7 @@ class DistrictListScreen extends Component {
   };
 
   render() {
-    let { districtList } = this.props.volunteerForm;
+    let { districtList } = this.props.regionList;
 
     return (
       districtList.length == 0 ?

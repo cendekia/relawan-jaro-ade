@@ -50,13 +50,13 @@ class RegisterScreen extends Component {
     NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
 
     //load dapil list
-    if (this.props.volunteerForm.dapilList.length == 0) {
+    if (this.props.regionList.dapilList.length == 0) {
       loadAllDapil(this.props)
     }
-    if (this.props.volunteerForm.villageList.length == 0) {
+    if (this.props.regionList.villageList.length == 0) {
       loadAllVillages(this.props)
     }
-    if (this.props.volunteerForm.districtList.length == 0) {
+    if (this.props.regionList.districtList.length == 0) {
       loadAllDistricts(this.props)
     }
   }
@@ -214,7 +214,7 @@ class RegisterScreen extends Component {
   }
 
   render() {
-    let { volunteerForm, internetCheck } = this.props
+    let { volunteerForm, internetCheck, regionList } = this.props
     let { savingResponse, responseCode } = this.state
 
     return (
@@ -240,7 +240,7 @@ class RegisterScreen extends Component {
                         label="Desa / Kelurahan"
                         func={this.props}
                         select={this.props.setVillage}
-                        data={volunteerForm.villageList}
+                        data={regionList.villageList}
                         selected={volunteerForm.village}
                       />
                     </Form>
@@ -253,7 +253,7 @@ class RegisterScreen extends Component {
                         label="Kecamatan"
                         func={this.props}
                         select={this.props.setDistrict}
-                        data={volunteerForm.districtList}
+                        data={regionList.districtList}
                         selected={volunteerForm.district}
                       />
                     </Form>
@@ -266,7 +266,7 @@ class RegisterScreen extends Component {
                         label="Dapil"
                         func={this.props}
                         select={this.props.setDapil}
-                        data={volunteerForm.dapilList}
+                        data={regionList.dapilList}
                         selected={volunteerForm.dapil}
                       />
                     </Form>
@@ -448,13 +448,7 @@ class RegisterScreen extends Component {
                   <Body>
                     <Button block warning
                       onPress={() =>
-                        saveData(this.props.volunteerForm)
-                          .then((res) => {
-                            this.setState({
-                              responseCode: res.status_code,
-                              savingResponse: res
-                            })
-                          })
+                        saveData(this.props.volunteerForm, this.props.resetForm)
                           .catch(error => {
                             Toast.show({
                               text: 'Data tersimpan di HP',
@@ -467,7 +461,6 @@ class RegisterScreen extends Component {
                     >
                       <Text>Unggah Data</Text>
                     </Button>
-
                   </Body>
                 </CardItem>
               </Card>

@@ -20,6 +20,16 @@ const formPersistConfig = {
   storage
 }
 
+const regionPersistConfig = {
+  key: 'region-list',
+  storage
+}
+
+const dashboardPersistConfig = {
+  key: 'dashboard-summary',
+  storage
+}
+
 const volunteerLocalDataPersistConfig = {
   key: 'volunteer-local-data',
   storage
@@ -46,11 +56,22 @@ const defaultFormState = {
   waNumber: undefined,
   photo: undefined,
   photoKTP: undefined,
+  createdDate: undefined,
+  updatedDate: undefined,
+}
+
+const defaultDashboard = {
+  totalRelawan: 0,
+  totalDapil: 0,
+  totalVillage: 0,
+  totalDistrict: 0,
+}
+
+const defaultRegion = {
   dapilList: [],
   villageList: [],
   districtList: [],
-  createdDate: undefined,
-  updatedDate: undefined,
+  volunteerList: [],
 }
 
 const defaultVolunteerSavedData = {
@@ -74,6 +95,64 @@ const logIn = (state = {}, action) => {
       return state
   }
 }
+
+const summaryDashboard = (state = defaultDashboard, action) => {
+  switch (action.type) {
+    case reduxConst.COUNT_TOTAL_VOLUNTEER:
+      return {
+        ...state,
+        totalRelawan: action.totalRelawan
+      }
+      break
+    // case reduxConst.LOAD_VILLAGE_LIST:
+    //   return {
+    //     ...state,
+    //     villageList: action.villageList
+    //   }
+    //   break
+    // case reduxConst.LOAD_DISTRICT_LIST:
+    //   return {
+    //     ...state,
+    //     districtList: action.districtList
+    //   }
+    //   break
+      default:
+        return state
+  }
+}
+
+const setRegionList = (state = defaultRegion, action) => {
+  switch (action.type) {
+    case reduxConst.LOAD_DAPIL_LIST:
+      return {
+        ...state,
+        dapilList: action.dapilList
+      }
+      break
+    case reduxConst.LOAD_VILLAGE_LIST:
+      return {
+        ...state,
+        villageList: action.villageList
+      }
+      break
+    case reduxConst.LOAD_DISTRICT_LIST:
+      return {
+        ...state,
+        districtList: action.districtList
+      }
+      break
+    case reduxConst.LOAD_VOLUNTEER_LIST:
+      return {
+        ...state,
+        volunteerList: action.volunteerList
+      }
+      break
+      default:
+        return state
+  }
+}
+
+
 
 const setVolunteerForm = (state = defaultFormState, action) => {
   switch (action.type) {
@@ -155,24 +234,6 @@ const setVolunteerForm = (state = defaultFormState, action) => {
         updatedDate: moment().format(),
       }
       break
-    case reduxConst.LOAD_DAPIL_LIST:
-      return {
-        ...state,
-        dapilList: action.dapilList
-      }
-      break
-    case reduxConst.LOAD_VILLAGE_LIST:
-      return {
-        ...state,
-        villageList: action.villageList
-      }
-      break
-    case reduxConst.LOAD_DISTRICT_LIST:
-      return {
-        ...state,
-        districtList: action.districtList
-      }
-      break
     case reduxConst.RESET_VOLUNTEER_DATA:
       return defaultFormState
       break
@@ -217,6 +278,8 @@ export default function getRootReducer(navReducer) {
         nav: persistReducer(navPersistConfig, navReducer),
         loginResponse: persistReducer(loginPersistConfig, logIn),
         volunteerForm: persistReducer(formPersistConfig, setVolunteerForm),
+        regionList: persistReducer(regionPersistConfig, setRegionList),
+        dashboardSummary: persistReducer(dashboardPersistConfig, summaryDashboard),
         volunteerCollection: persistReducer(volunteerLocalDataPersistConfig, volunteerCollection),
         internetCheck: persistReducer(internetCheckPersistConfig, internetCheck)
     });

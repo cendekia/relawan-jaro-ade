@@ -4,7 +4,7 @@ const API_ADDRESS = 'http://raja.uatwebsite.com/api'
 const ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIyYzkwYmMxYjdhZDFlOGUyM2JjNzMwMWIwODIwNDY0NjQ2ZjczYjY1MjIzNDc1NWY4ZjA5ZWZmMjQwZDdhNjNlYmFjMjZiYTI2YzBkZDg1In0.eyJhdWQiOiIxIiwianRpIjoiMjJjOTBiYzFiN2FkMWU4ZTIzYmM3MzAxYjA4MjA0NjQ2NDZmNzNiNjUyMjM0NzU1ZjhmMDllZmYyNDBkN2E2M2ViYWMyNmJhMjZjMGRkODUiLCJpYXQiOjE1MDk4NjEyNDgsIm5iZiI6MTUwOTg2MTI0OCwiZXhwIjoxNTQxMzk3MjQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Qhl4tw6xZLeTf38lyi5cvGU1BOKDOaDAxmA1P_g3X2kzM6WYRw5_zZtG_W3WUD9kPYJsJW1mucmcrUlSjP8nujPV9Rpp9dL5jUYSBAYJISzzwpEP5eCgG4-rhrXHbwpUtAOs3nhjbQF_vVMbB7Nfn3aXd435UrdbE1S6aybQUWEhs264uGq0QU-nn3F2ZIvEmdHwXkHx30B1Fdm0BFt-nh3Oew0M0j4uEWuvqJcB1BEdpR7yL-DMN1tqSy5-QpzWU3WAv6rsnnyniXu4eEgqzlhJiblhyArCuGXBdhbZ1rq-i2cQvpuQJu0Zuc8gXVaAwDlxjFi8ol9AI9mPOmQUJTbrnv-H2aqmugzMYFt1JZdSQ1Z0XEnOONW7lFtDkuaw3kjiUDtNdbAAwpX4ia18Jr_W23pZLVSRY1Lx6TwsM67Vza3VNlDPghlplfIk8n6mrniBVfPtQ4YxACxmJ923GkCidE_4D2EAHFzBBAhlZfa131BkjW5B4k99bfEgsDmU43yKOSllbx1qoXxtuR5UtIbolAtXtGLpow-w80augOSxgAPJr61gVPzJikVYVnWfNQx2Nj4XmRPXjrlo0cOr5MNlG8O25OELwiQCUYSBOqVWiTPNdFm9dGAqVU_kw8UiEqIuvQduZMgYzxpzYbg6-R5qyeULAcMFop9It31akpQ"
 
 
-export async function saveData(data) {
+export async function saveData(data, resetForm) {
   const url = `${API_ADDRESS}/volunteer-register`
 
   return (
@@ -27,6 +27,7 @@ export async function saveData(data) {
       }
     )
     .then((res) => {
+      console.log(res)
       switch (res.status_code) {
         case 10:
           Toast.show({
@@ -35,16 +36,18 @@ export async function saveData(data) {
             type: 'success',
             buttonText: 'Tutup'
           })
+
+          resetForm()
+          break
         default:
           Toast.show({
-            text: res.error.message,
+            text: (res.error.validation.idNumber) ? res.error.validation.idNumber : res.error.message,
             position: 'bottom',
             type: 'danger',
             buttonText: 'Tutup'
           })
+          break
       }
-
-      return res;
     })
     .catch(error => {
       Toast.show({
@@ -74,8 +77,6 @@ export async function loadAllDapil(reduxVar) {
       return response.json()
     })
     .then((res) => {
-      console.log(res.data)
-      console.log(reduxVar)
       reduxVar.loadDapilList(res.data)
     })
     .catch(error => {
@@ -136,9 +137,69 @@ export async function loadAllVillages(reduxVar) {
       return response.json()
     })
     .then((res) => {
-      console.log(res.data)
-      console.log(reduxVar)
       reduxVar.loadVillageList(res.data)
+    })
+    .catch(error => {
+      Toast.show({
+        text: 'Error!',
+        position: 'bottom',
+        type: 'danger',
+        buttonText: 'Tutup'
+      })
+    })
+  )
+}
+
+export async function loadVolunteers(reduxVar) {
+  const url = `${API_ADDRESS}/volunteer-register`
+
+  return (
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${ACCESS_TOKEN}`
+      },
+      credentials: "same-origin"
+    })
+    .then(function(response) {
+      return response.json()
+    })
+    .then((res) => {
+      console.log(res)
+      console.log(reduxVar)
+      reduxVar.loadVolunteerList(res.data)
+    })
+    .catch(error => {
+      Toast.show({
+        text: 'Error!',
+        position: 'bottom',
+        type: 'danger',
+        buttonText: 'Tutup'
+      })
+    })
+  )
+}
+
+export async function totalVolunteer(reduxVar) {
+  const url = `${API_ADDRESS}/total-volunteer`
+
+  return (
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${ACCESS_TOKEN}`
+      },
+      credentials: "same-origin"
+    })
+    .then(function(response) {
+      return response.json()
+    })
+    .then((res) => {
+      reduxVar.countTotalVolunteer(res.total_volunteer)
     })
     .catch(error => {
       Toast.show({

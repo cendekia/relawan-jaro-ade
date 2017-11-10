@@ -116,6 +116,13 @@ export function loadAllDapil(list) {
   }
 }
 
+export function totalVolunteer(total) {
+  return {
+    type: reduxConst.COUNT_TOTAL_VOLUNTEER,
+    totalRelawan: total
+  }
+}
+
 export function loadAllVillages(list) {
   return {
     type: reduxConst.LOAD_VILLAGE_LIST,
@@ -127,5 +134,12 @@ export function loadAllDistricts(list) {
   return {
     type: reduxConst.LOAD_DISTRICT_LIST,
     districtList: list
+  }
+}
+
+export function loadVolunteers(list) {
+  return {
+    type: reduxConst.LOAD_VOLUNTEER_LIST,
+    volunteerList: list
   }
 }

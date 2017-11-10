@@ -1,13 +1,10 @@
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DashboardScreen from '../../screens/DashboardScreen'
+import MemberListScreen from '../../screens/MemberListScreen'
 
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkConnection: (status) => {
-      dispatch(actions.connectionState(status))
-    },
     loadDapilList: (list) => {
       dispatch(actions.loadAllDapil(list))
     },
@@ -20,9 +17,6 @@ const mapDispatchToProps = (dispatch) => {
     loadVolunteerList: (list) => {
       dispatch(actions.loadVolunteers(list))
     },
-    countTotalVolunteer: (list) => {
-      dispatch(actions.totalVolunteer(list))
-    }
   }
 }
 
@@ -33,4 +27,4 @@ const mapStateToProps = (state, { navigator }) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MemberListScreen);

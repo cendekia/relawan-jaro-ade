@@ -25,42 +25,42 @@ export default class SelectPicker extends Component {
     if (this.props.label == "Desa / Kelurahan") {
       // find districts
       if (currentData.district_id != null) {
-        let districts = this.props.func.volunteerForm.districtList
+        let districts = this.props.func.regionList.districtList
         let currentDistrict = districts.find(d => d.id === currentData.district_id)
         this.props.func.setDistrict(currentDistrict.id)
       }
 
       // find dapil
       if (currentData.dapil_id != null) {
-        let dapils = this.props.func.volunteerForm.dapilList
+        let dapils = this.props.func.regionList.dapilList
         let currentDapil = dapils.find(d => d.id === currentData.dapil_id)
         this.props.func.setDapil(currentDapil.id)
       }
     } else if (this.props.label == "Kecamatan") {
       // find villages
       if (currentData.village_id != null) {
-        let villages = this.props.func.volunteerForm.villageList
+        let villages = this.props.func.regionList.villageList
         let currentVillage = villages.find(d => d.id === currentData.village_id)
         this.props.func.setVillage(currentDistrict.id)
       }
 
       // find dapil
       if (currentData.dapil_id != null) {
-        let dapils = this.props.func.volunteerForm.dapilList
+        let dapils = this.props.func.regionList.dapilList
         let currentDapil = dapils.find(d => d.id === currentData.dapil_id)
         this.props.func.setDapil(currentDapil.id)
       }
     } else if (this.props.label == "Dapil") {
       // find villages
       if (currentData.village_id != null) {
-        let villages = this.props.func.volunteerForm.villageList
+        let villages = this.props.func.regionList.villageList
         let currentVillage = villages.find(d => d.id === currentData.village_id)
         this.props.func.setVillage(currentDistrict.id)
       }
 
       // find districts
       if (currentData.district_id != null) {
-        let districts = this.props.func.volunteerForm.districtList
+        let districts = this.props.func.regionList.districtList
         let currentDistrict = districts.find(d => d.id === currentData.district_id)
         this.props.func.setDistrict(currentDistrict.id)
       }

@@ -2,12 +2,12 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 import DashboardScreen from '../screens/DashboardScreen';
 import DashboardContainer from '../components/containers/DashboardContainer';
-import MemberListScreen from '../screens/MemberListScreen';
 import MessageScreen from '../screens/MessageScreen';
 import HelpScreen from '../screens/HelpScreen';
 import VolunteerLocalScreen from '../screens/VolunteerLocalScreen';
 import TestScreen from '../screens/TestScreen';
 
+import MemberListContainer from '../components/containers/MemberListContainer';
 import VillageListContainer from '../components/containers/VillageListContainer';
 import DapilListContainer from '../components/containers/DapilListContainer';
 import DistrictListContainer from '../components/containers/DistrictListContainer';
@@ -20,7 +20,7 @@ import RegisterContainer from '../components/containers/RegisterContainer';
 
 const DashboardScreenRoutes = {
   DashboardScreen: { screen: DashboardContainer },
-  MemberListScreen: { screen: MemberListScreen },
+  MemberListScreen: { screen: MemberListContainer },
   VillageListScreen: { screen: VillageListContainer },
   DistrictListScreen: { screen: DistrictListContainer },
   DapilListScreen: { screen: DapilListContainer }

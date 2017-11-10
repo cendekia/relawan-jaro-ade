@@ -13,7 +13,10 @@ import Header from '../components/Header'
 import Colors from '../constants/Colors'
 import { loggedIn } from '../actions'
 
-import { loadAllDapil, loadAllVillages, loadAllDistricts } from '../api'
+import {
+  loadAllDapil, loadAllVillages, loadAllDistricts,
+  totalVolunteer, loadVolunteers
+} from '../api'
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -64,20 +67,27 @@ class DashboardScreen extends Component {
 
   componentDidMount() {
     //load dapil list
-    if (this.props.volunteerForm.dapilList.length == 0) {
+    if (this.props.regionList.dapilList.length == 0) {
       loadAllDapil(this.props)
     }
-    if (this.props.volunteerForm.villageList.length == 0) {
+    if (this.props.regionList.villageList.length == 0) {
       loadAllVillages(this.props)
     }
-    if (this.props.volunteerForm.districtList.length == 0) {
+    if (this.props.regionList.districtList.length == 0) {
       loadAllDistricts(this.props)
     }
+
+    if (this.props.regionList.volunteerList.length == 0) {
+      loadVolunteers(this.props)
+    }
+    console.log(this.props)
+    totalVolunteer(this.props)
   }
 
   render() {
     const { navigation, activeItemKey } = this.props
-    let { districtList, dapilList, villageList } = this.props.volunteerForm;
+    let { districtList, dapilList, villageList, volunteerList } = this.props.regionList;
+    let { totalRelawan, totalDistrict, totalDapil, totalVillage } = this.props.dashboardSummary;
 
     return (
       <Container>
@@ -106,16 +116,23 @@ class DashboardScreen extends Component {
                       <Entypo name='slideshare' size={30}
                       style={styles.fontWhite} />
                     </Col>
-                    <Col style={styles.centralize}>
-                      <H1 style={[styles.customH1, styles.fontWhite]}>
-                        355.340
-                      </H1>
-                    </Col>
-                    <Col style={styles.absoluteBottom}>
-                      <Text style={[styles.fontWhite, styles.footerText]}>
-                        Relawan Terdaftar
-                      </Text>
-                    </Col>
+                    { volunteerList.length == 0 &&
+                      <View style={styles.spinner}>
+                        <Spinner color={Colors.tintColor} />
+                      </View>
+                    }
+                    { volunteerList.length > 0 &&
+                      <Col style={styles.centralize}>
+                        <H1 style={[styles.customH1, styles.fontWhite, styles.customWidth]}>{ totalRelawan.toString() }</H1>
+                      </Col>
+                    }
+                    { volunteerList.length > 0 &&
+                      <Col style={styles.absoluteBottom}>
+                        <Text style={[styles.fontWhite, styles.footerText]}>
+                          Relawan Terdaftar
+                        </Text>
+                      </Col>
+                    }
                   </Body>
                 </TouchableOpacity>
                 </CardItem>
@@ -137,7 +154,7 @@ class DashboardScreen extends Component {
                     }
                     { villageList.length > 0 &&
                       <Col style={styles.centralize}>
-                        <H1 style={[styles.customH1, styles.fontWhite]}>
+                        <H1 style={[styles.customH1, styles.fontWhite, styles.customWidth]}>
                           34.6%
                         </H1>
                       </Col>
@@ -172,7 +189,7 @@ class DashboardScreen extends Component {
                     }
                     { districtList.length > 0 &&
                       <Col style={styles.centralize}>
-                        <H1 style={[styles.customH1, styles.fontWhite]}>
+                        <H1 style={[styles.customH1, styles.fontWhite, styles.customWidth]}>
                           87.5%
                         </H1>
                       </Col>
@@ -206,7 +223,7 @@ class DashboardScreen extends Component {
                     }
                     { dapilList.length > 0 &&
                       <Col style={styles.centralize}>
-                        <H1 style={[styles.customH1, styles.fontWhite]}>
+                        <H1 style={[styles.customH1, styles.fontWhite, styles.customWidth]}>
                           100%
                         </H1>
                       </Col>
@@ -240,6 +257,7 @@ const styles = StyleSheet.create({
   fontWhite: {color: 'white'},
   centralize: {alignItems: 'center', flex: 1},
   customH1: {fontWeight: 'bold', fontSize: 28},
+  customWidth: {width: 100},
   footerText: {fontSize: 12},
 })
 
