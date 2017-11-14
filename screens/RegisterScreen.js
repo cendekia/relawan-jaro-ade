@@ -100,6 +100,7 @@ class RegisterScreen extends Component {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
+      quality: 0.3
     })
 
     this._handlePhotoProfile(pickerResult)
@@ -109,6 +110,7 @@ class RegisterScreen extends Component {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
+      quality: 0.3
     })
 
     this._handlePhotoProfile(pickerResult)
@@ -118,6 +120,7 @@ class RegisterScreen extends Component {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
+      quality: 0.3
     })
 
     this._handlePhotoKTP(pickerResult)
@@ -127,6 +130,7 @@ class RegisterScreen extends Component {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
+      quality: 0.3
     })
 
     this._handlePhotoKTP(pickerResult)
@@ -135,7 +139,7 @@ class RegisterScreen extends Component {
   _handlePhotoProfile = async pickerResult => {
     try {
       this.setState({ uploading: true })
-
+      console.log(pickerResult)
       if (!pickerResult.cancelled) {
         this.props.setPhoto(pickerResult.uri)
       }
